@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class Bro {
     private static final String name = "Bro";
     private static final String horizontalLine = "_____________________________________";
+    private static Scanner scanner = new Scanner(System.in);
     private static Tasks tasks = new Tasks();
 
     public static void main(String[] args) {
@@ -27,7 +28,6 @@ public class Bro {
     }
 
     private static String readInput() {
-        Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         return (input.isBlank() ? "none" : input);
     }
