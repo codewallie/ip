@@ -12,8 +12,13 @@ public class Task {
     }
 
     public void markAsDone() {
-        isDone = true;
         printLine();
+        if (isDone) {
+            System.out.println("\tThis task is already marked as done!");
+            return;
+        }
+        isDone = true;
+        
         System.out.println(
             String.format(
                 "\tNice! I've marked this task as done:\n\t\t%s",
@@ -22,8 +27,13 @@ public class Task {
     }
 
     public void markAsUndone() {
-        isDone = false;
         printLine();
+        if (!isDone) {
+            System.out.println("\tThis task is already marked as not done!");
+            return;
+        }
+        isDone = false;
+
         System.out.println(
             String.format(
                 "\tOK, I've marked this task as not done yet:\n\t\t%s",

@@ -16,10 +16,19 @@ public class Tasks {
             .markAsDone();
             return true;
         } catch (IndexOutOfBoundsException e) {
+            printLine();
             System.out.println("\tInvalid task number!");
+            printLine();
             return false;
         } catch (NumberFormatException e) {
+            printLine();
             System.out.println("\tPlease provide a valid task number!");
+            printLine();
+            return false;
+        } catch (Exception e) {
+            printLine();
+            System.out.println("\tERROR!");
+            printLine();
             return false;
         }
      }
@@ -33,26 +42,64 @@ public class Tasks {
                 .markAsUndone();
             return true;
         } catch (IndexOutOfBoundsException e) {
+            printLine();
             System.out.println("\tInvalid task number!");
+            printLine();
             return false;
         } catch (NumberFormatException e) {
+            printLine();
             System.out.println("\tPlease provide a valid task number!");
+            printLine();
+            return false;
+        } catch (Exception e) {
+            printLine();
+            System.out.println("\tERROR!");
+            printLine();
             return false;
         }
      }
 
      public void addTask(String input) {
-        if (input.startsWith("todo ")) {
-            tasks.add(new Todo(input.replace("todo ", "")));
-        } else if (input.startsWith("deadline ")) {
-            String[] inputParts = input.replace("deadline ", "").split(" /by ");
+        if (input.startsWith("todo")) {
+            input = input.replace("todo", "");
+            if (input.isBlank()) {
+                System.out.println("\tPlease provide a description for the todo!");
+                return;
+            }
+            tasks.add(new Todo(input));
+        } else if (input.startsWith("deadline")) {
+            String[] inputParts = input.replace("deadline", "").split(" /by ");
+            inputParts[0] = inputParts[0].replaceFirst(" ", "");
+            if (inputParts[0].isBlank()) {
+                System.out.println("\tPlease provide a description for the deadline!");
+                return;
+            } else if (inputParts.length < 2) {
+                System.out.println("\tPlease provide a deadline!");
+                return;
+            }
             tasks.add(new Deadline(inputParts[0], inputParts[1]));
-        } else if (input.startsWith("event ")) {
-            String[] inputParts = input.replace("event ", "").split(" /from ");
+
+        } else if (input.startsWith("event")) {
+            String[] inputParts = input.replace("event", "").split(" /from ");
+            inputParts[0] = inputParts[0].replaceFirst(" ", "");
+            if (inputParts[0].isBlank()) {
+                System.out.println("\tPlease provide a description for the event!");
+                return;
+            } else if (inputParts.length < 2) {
+                System.out.println("\tPlease provide an event time range!");
+                return;
+            }
+
             String[] fromTo = inputParts[1].split(" /to ");
+            if (fromTo.length < 2) {
+                System.out.println("\tPlease provide both start and end times for the event!");
+                return;
+            }
             tasks.add(new Event(inputParts[0], fromTo[0], fromTo[1]));
         } else {
+            printLine();
             System.out.println("\tUnknown command!");
+            printLine();
             return;
         }
         
