@@ -1,10 +1,9 @@
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Bro {
     private static final String name = "Bro";
     private static final String horizontalLine = "_____________________________________";
-    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static Tasks tasks = new Tasks();
 
     public static void main(String[] args) {
         printHello();
@@ -13,22 +12,13 @@ public class Bro {
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
-                printTasks();
+                tasks.listTasks();
             } else if (input.startsWith("mark ")) {
-                tasks.get(
-                    Integer.parseInt(
-                        input.replace("mark ", ""))
-                        - 1)
-                    .markAsDone();
+                tasks.markTask(input);
             } else if (input.startsWith("unmark ")) {
-                tasks.get(
-                    Integer.parseInt(
-                        input.replace("unmark ", ""))
-                        - 1)
-                    .markAsUndone();
+                tasks.unmarkTask(input);
             } else {
-                tasks.add(new Task(input));
-                printMsg(input);
+                tasks.addTask(input);
             }
             
             input = readInput();
@@ -40,30 +30,6 @@ public class Bro {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         return (input.isBlank() ? "none" : input);
-    }
-
-    private static void printTasks() {
-        System.out.println(
-            String.format("\t%s\n\tHere are the tasks in your list:", 
-                horizontalLine));
-        
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(
-                String.format("\t%d. %s", 
-                    i + 1, tasks.get(i)));
-        }
-        
-        System.out.println(
-            String.format("\t%s", 
-                horizontalLine));
-    }
-
-    private static void printMsg(String msg) {
-        System.out.println(String.format(
-                        "\t%s\n\tadded: %s\n\t%s",
-                        horizontalLine, 
-                        msg, 
-                        horizontalLine));
     }
 
     private static void printHello() {
