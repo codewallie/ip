@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class Bro {
     private static final String name = "Bro";
     private static final String horizontalLine = "_____________________________________";
-    private static ArrayList<String> userInputs = new ArrayList<String>();
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
 
     public static void main(String[] args) {
         printHello();
@@ -13,9 +13,21 @@ public class Bro {
             if (input.equals("bye")) {
                 break;
             } else if (input.equals("list")) {
-                printList();
+                printTasks();
+            } else if (input.startsWith("mark ")) {
+                tasks.get(
+                    Integer.parseInt(
+                        input.replace("mark ", ""))
+                        - 1)
+                    .markAsDone();
+            } else if (input.startsWith("unmark ")) {
+                tasks.get(
+                    Integer.parseInt(
+                        input.replace("unmark ", ""))
+                        - 1)
+                    .markAsUndone();
             } else {
-                userInputs.add(input);
+                tasks.add(new Task(input));
                 printMsg(input);
             }
             
@@ -27,21 +39,18 @@ public class Bro {
     private static String readInput() {
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
-        if (input.isBlank()) {
-            return "none";
-        }
-        return input;
+        return (input.isBlank() ? "none" : input);
     }
 
-    private static void printList() {
+    private static void printTasks() {
         System.out.println(
-            String.format("\t%s", 
+            String.format("\t%s\n\tHere are the tasks in your list:", 
                 horizontalLine));
         
-        for (int i = 0; i < userInputs.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             System.out.println(
                 String.format("\t%d. %s", 
-                    i + 1, userInputs.get(i)));
+                    i + 1, tasks.get(i)));
         }
         
         System.out.println(
