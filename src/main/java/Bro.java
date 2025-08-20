@@ -14,10 +14,12 @@ public class Bro {
                 break;
             } else if (input.equals("list")) {
                 tasks.listTasks();
-            } else if (input.startsWith("mark ")) {
+            } else if (input.startsWith("mark")) {
                 tasks.markTask(input);
-            } else if (input.startsWith("unmark ")) {
+            } else if (input.startsWith("unmark")) {
                 tasks.unmarkTask(input);
+            } else if (input.startsWith("delete")) {
+                tasks.deleteTask(input);
             } else {
                 tasks.addTask(input);
             }

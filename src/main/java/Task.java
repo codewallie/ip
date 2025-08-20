@@ -15,6 +15,7 @@ public class Task {
         printLine();
         if (isDone) {
             System.out.println("\tThis task is already marked as done!");
+            printLine();
             return;
         }
         isDone = true;
@@ -30,6 +31,7 @@ public class Task {
         printLine();
         if (!isDone) {
             System.out.println("\tThis task is already marked as not done!");
+            printLine();
             return;
         }
         isDone = false;

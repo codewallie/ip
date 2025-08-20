@@ -111,6 +111,30 @@ public class Tasks {
         printLine();
      }
 
+     public void deleteTask(String input) {
+        input = input.replace("delete", "").replaceFirst(" ", "");
+        if (input.isBlank()) {
+            System.out.println("\tPlease provide a task number to delete!");
+            return;
+        }
+        printLine();
+        try {
+            String deletedTaskInfo = tasks.get(Integer.parseInt(input) - 1).toString();
+            tasks.remove(Integer.parseInt(input) - 1);
+            System.out.println(
+                String.format(
+                    "\tNoted. I've removed this task:\n\t%s\n\tNow you have %d tasks in the list.",
+                    deletedTaskInfo, tasks.size()));
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("\tInvalid task number!");
+        } catch (NumberFormatException e) {
+            System.out.println("\tPlease provide a valid task number!");
+        } catch (Exception e) {
+            System.out.println("\tERROR!");
+        }
+        printLine();
+     }
+
      public void listTasks() {
         printLine();
         System.out.println("\tHere are the tasks in your list:");
