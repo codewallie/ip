@@ -7,6 +7,10 @@ public class Tasks {
         this.tasks = new ArrayList<>();
      }
 
+     public Tasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+     }
+
      public boolean markTask(String input) {
         try {
          tasks.get(
