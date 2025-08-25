@@ -48,6 +48,12 @@ public class Task {
         printLine();
     }
 
+    public String toDataString() {
+        return String.format("|%d|%s", 
+            (isDone ? 1 : 0), 
+            description);
+    }
+
     @Override
     public String toString() {
         return String.format("[%s] %s", 

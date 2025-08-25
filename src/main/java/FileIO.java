@@ -50,6 +50,55 @@ public class FileIO {
         }
     }
 
+    public static void updateByDescription(String updatedEntry) {
+        String type = updatedEntry.substring(0, 1);
+        String description = updatedEntry.split("[|]")[2];
+        if (fileExists()) {
+            try {
+                String currentData = "";
+                File data = new File(FILE_PATH);
+                Scanner reader = new Scanner(data);
+                while (reader.hasNextLine()) {
+                    String line = reader.nextLine();
+                    String[] lineData = line.split("[|]");
+                    if (lineData[0].equals(type) && lineData[2].equals(description)) {
+                        currentData += updatedEntry + System.lineSeparator();
+                    } else {
+                        currentData += line + System.lineSeparator();
+                    }
+                }
+                reader.close();
+                Files.write(
+                        Paths.get(FILE_PATH),
+                        currentData.getBytes());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    public static void deleteByEntry(String deletedEntry) {
+        if (fileExists()) {
+            try {
+                String currentData = "";
+                File data = new File(FILE_PATH);
+                Scanner reader = new Scanner(data);
+                while (reader.hasNextLine()) {
+                    String line = reader.nextLine();
+                    if (!line.equals(deletedEntry)) {
+                        currentData += line + System.lineSeparator();
+                    }
+                }
+                reader.close();
+                Files.write(
+                        Paths.get(FILE_PATH),
+                        currentData.getBytes());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     public static ArrayList<Task> loadData() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         if (fileExists()) {
@@ -73,6 +122,8 @@ public class FileIO {
                         Event event = new Event(lineData[2], isDone, lineData[3], lineData[4]);
                         tasks.add(event);
                         break;
+                    default:
+                        System.out.println("Corrupted file!");
                     }
                 }
                 reader.close();

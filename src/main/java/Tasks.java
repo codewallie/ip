@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 public class Tasks {
      private ArrayList<Task> tasks;
+     private static final String HORIZONTAL_LINE = "\t_____________________________________\n";
      
      public Tasks() {
         this.tasks = new ArrayList<>();
@@ -11,69 +12,54 @@ public class Tasks {
         this.tasks = tasks;
      }
 
-     public boolean markTask(String input) {
+     public void markTask(String input) {
         try {
-         tasks.get(
-            Integer.parseInt(
-                input.replace("mark ", ""))
-                - 1)
-            .markAsDone();
-            return true;
+            Task task = tasks.get(
+                Integer.parseInt(
+                    input.replace("mark ", ""))
+                    - 1);
+            task.markAsDone();
+            FileIO.updateByDescription(task.toDataString());
         } catch (IndexOutOfBoundsException e) {
-            printLine();
-            System.out.println("\tInvalid task number!");
-            printLine();
-            return false;
+            System.out.println(HORIZONTAL_LINE + "\tInvalid task number!" + HORIZONTAL_LINE);
         } catch (NumberFormatException e) {
-            printLine();
-            System.out.println("\tPlease provide a valid task number!");
-            printLine();
-            return false;
+            System.out.println(HORIZONTAL_LINE + "\tPlease provide a valid task number!" + HORIZONTAL_LINE);
         } catch (Exception e) {
-            printLine();
-            System.out.println("\tERROR!");
-            printLine();
-            return false;
+            System.out.println(HORIZONTAL_LINE + "\tERROR!" + HORIZONTAL_LINE);
         }
      }
 
-     public boolean unmarkTask(String input) {
+     public void unmarkTask(String input) {
         try {
-            tasks.get(
+            Task task = tasks.get(
                 Integer.parseInt(
                     input.replace("unmark ", ""))
-                    - 1)
-                .markAsUndone();
-            return true;
+                    - 1);
+            task.markAsUndone();
+            FileIO.updateByDescription(task.toDataString());
         } catch (IndexOutOfBoundsException e) {
-            printLine();
-            System.out.println("\tInvalid task number!");
-            printLine();
-            return false;
+            System.out.println(HORIZONTAL_LINE + "\tInvalid task number!" + HORIZONTAL_LINE);
         } catch (NumberFormatException e) {
-            printLine();
-            System.out.println("\tPlease provide a valid task number!");
-            printLine();
-            return false;
+            System.out.println(HORIZONTAL_LINE + "\tPlease provide a valid task number!" + HORIZONTAL_LINE);
         } catch (Exception e) {
-            printLine();
-            System.out.println("\tERROR!");
-            printLine();
-            return false;
+            System.out.println(HORIZONTAL_LINE + "\tERROR!" + HORIZONTAL_LINE);
         }
      }
 
      public void addTask(String input) {
         if (input.startsWith("todo")) {
-            input = input.replace("todo", "");
+            input = input.replace("todo", "").stripLeading();
             if (input.isBlank()) {
                 System.out.println("\tPlease provide a description for the todo!");
                 return;
             }
             tasks.add(new Todo(input));
+            FileIO.addEntry("T|0|" + input + "\n");
+
         } else if (input.startsWith("deadline")) {
-            String[] inputParts = input.replace("deadline", "").split(" /by ");
-            inputParts[0] = inputParts[0].replaceFirst(" ", "");
+            String[] inputParts = input.replace("deadline", "")
+                .stripLeading()
+                .split(" /by ");
             if (inputParts[0].isBlank()) {
                 System.out.println("\tPlease provide a description for the deadline!");
                 return;
@@ -82,10 +68,12 @@ public class Tasks {
                 return;
             }
             tasks.add(new Deadline(inputParts[0], inputParts[1]));
+            FileIO.addEntry("D|0|" + inputParts[0] + "|" + inputParts[1] + "\n");
 
         } else if (input.startsWith("event")) {
-            String[] inputParts = input.replace("event", "").split(" /from ");
-            inputParts[0] = inputParts[0].replaceFirst(" ", "");
+            String[] inputParts = input.replace("event", "")
+                .stripLeading()
+                .split(" /from ");
             if (inputParts[0].isBlank()) {
                 System.out.println("\tPlease provide a description for the event!");
                 return;
@@ -100,58 +88,53 @@ public class Tasks {
                 return;
             }
             tasks.add(new Event(inputParts[0], fromTo[0], fromTo[1]));
+            FileIO.addEntry("E|0|" + inputParts[0] + "|" + fromTo[0] + "|" + fromTo[1] + "\n");
+
         } else {
-            printLine();
-            System.out.println("\tUnknown command!");
-            printLine();
+            System.out.println(HORIZONTAL_LINE + "\tUnknown command!" + HORIZONTAL_LINE);
             return;
         }
         
-        printLine();
         System.out.println(
             String.format(
-                "\tGot it. I've added this task:\n\t%s\n\tNow you have %d tasks in the list.",
-                tasks.get(tasks.size() - 1), tasks.size()));
-        printLine();
+                "%s\tGot it. I've added this task:\n\t%s\n\tNow you have %d tasks in the list.%s",
+                HORIZONTAL_LINE, 
+                tasks.get(tasks.size() - 1), 
+                tasks.size(),
+                HORIZONTAL_LINE));
      }
 
      public void deleteTask(String input) {
         input = input.replace("delete", "").replaceFirst(" ", "");
         if (input.isBlank()) {
-            System.out.println("\tPlease provide a task number to delete!");
+            System.out.println(HORIZONTAL_LINE + "\tPlease provide a task number to delete!" + HORIZONTAL_LINE);
             return;
         }
-        printLine();
         try {
-            String deletedTaskInfo = tasks.get(Integer.parseInt(input) - 1).toString();
+            Task task = tasks.get(Integer.parseInt(input) - 1);
+            String deletedTaskData = task.toDataString();
             tasks.remove(Integer.parseInt(input) - 1);
+            FileIO.deleteByEntry(deletedTaskData);
             System.out.println(
                 String.format(
-                    "\tNoted. I've removed this task:\n\t%s\n\tNow you have %d tasks in the list.",
-                    deletedTaskInfo, tasks.size()));
+                    "%s\tNoted. I've removed this task:\n\t%s\n\tNow you have %d tasks in the list.%s",
+                    HORIZONTAL_LINE, task.toString(), tasks.size(), HORIZONTAL_LINE));
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("\tInvalid task number!");
+            System.out.println(HORIZONTAL_LINE + "\tInvalid task number!" + HORIZONTAL_LINE);
         } catch (NumberFormatException e) {
-            System.out.println("\tPlease provide a valid task number!");
+            System.out.println(HORIZONTAL_LINE + "\tPlease provide a valid task number!" + HORIZONTAL_LINE);
         } catch (Exception e) {
-            System.out.println("\tERROR!");
+            System.out.println(HORIZONTAL_LINE + "\tERROR!" + HORIZONTAL_LINE);
         }
-        printLine();
      }
 
      public void listTasks() {
-        printLine();
-        System.out.println("\tHere are the tasks in your list:");
-        
+        System.out.println(HORIZONTAL_LINE + "\tHere are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
             System.out.println(
                 String.format("\t%d. %s", 
                     i + 1, tasks.get(i)));
         }
-        printLine();
-    }
-
-    private void printLine() {
-        System.out.println("\t_____________________________________");
+        System.out.println(HORIZONTAL_LINE);
     }
 }
