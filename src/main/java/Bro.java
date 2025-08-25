@@ -1,12 +1,13 @@
 import java.util.Scanner;
 
 public class Bro {
-    private static final String name = "Bro";
-    private static final String horizontalLine = "_____________________________________";
+    private static final String NAME = "Bro";
+    private static final String HORIZONTAL_LINE = "_____________________________________";
     private static Scanner scanner = new Scanner(System.in);
-    private static Tasks tasks = new Tasks();
 
     public static void main(String[] args) {
+        Tasks tasks = new Tasks(FileIO.loadData());
+
         printHello();
         String input = readInput();
         while (input != null) {
@@ -38,16 +39,16 @@ public class Bro {
         System.out.println(
                 String.format(
                         "\t%s\n\tHello! I'm %s\n\tWhat can I do for you?\n\t%s",
-                        horizontalLine, 
-                        name, 
-                        horizontalLine));
+                        HORIZONTAL_LINE, 
+                        NAME, 
+                        HORIZONTAL_LINE));
     }
 
     private static void printBye() {
         System.out.println(
                 String.format(
                         "\t%s\n\tBye. Hope to see you again soon!\n\t%s",
-                        horizontalLine, 
-                        horizontalLine));
+                        HORIZONTAL_LINE, 
+                        HORIZONTAL_LINE));
     }
 }

@@ -7,6 +7,11 @@ public class Task {
         this.isDone = false;
     }
 
+    public Task(String description, boolean isDone) {
+        this.description = description;
+        this.isDone = isDone;
+    }
+
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
@@ -41,6 +46,12 @@ public class Task {
                 "\tOK, I've marked this task as not done yet:\n\t\t%s",
                 toString()));
         printLine();
+    }
+
+    public String toDataString() {
+        return String.format("|%d|%s", 
+            (isDone ? 1 : 0), 
+            description);
     }
 
     @Override
