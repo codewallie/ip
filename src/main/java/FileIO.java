@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FileIO {
-    public static final String FOLDER_PATH = "../../data";
+    public static final String FOLDER_PATH = "./data";
     public static final String FILE_PATH = FOLDER_PATH + "/bro.txt";
 
     public static boolean folderExists() {
