@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,12 +8,31 @@ public class Deadline extends Task {
 
     public Deadline(String description, String by) {
         super(description);
-        this.by = LocalDateTime.parse(by, formatter);
+        try {
+            this.by = LocalDateTime.parse(by, formatter);
+        } catch (Exception e) {
+            System.out.println("\tError parsing date/time. Please use the format: d/M/yyyy HHmm");
+        }
     }
 
     public Deadline(String description, boolean isDone, String by) {
         super(description, isDone);
-        this.by = LocalDateTime.parse(by, formatter);
+        try {
+            this.by = LocalDateTime.parse(by, formatter);
+        } catch (Exception e) {
+            System.out.println("\tError parsing date/time. Please use the format: d/M/yyyy HHmm");
+        }
+    }
+
+    public boolean isOnDate(String date) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        try {
+            LocalDate checkDate = LocalDate.parse(date, dateFormatter);
+            return by.toLocalDate().isEqual(checkDate);        
+        } catch (Exception e) {
+            System.out.println("\tError parsing date. Please use the format: d/M/yyyy");
+            return false;
+        }
     }
 
     public String toDataString() {
@@ -25,9 +45,14 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("d MMM yyyy hh:mma");
-        return String.format("[D] [%s] %s (by: %s)", 
-            getStatusIcon(), 
-            description,
-            by.format(printFormat));
+        try {
+            return String.format("[D] [%s] %s (by: %s)", 
+                getStatusIcon(), 
+                description,
+                by.format(printFormat));
+        } catch (Exception e) {
+            System.out.println("\tError parsing date. Please use the format: d/M/yyyy");
+            return "";
+        }
     }
 }

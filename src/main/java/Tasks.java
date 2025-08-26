@@ -67,7 +67,11 @@ public class Tasks {
                 System.out.println("\tPlease provide a deadline!");
                 return;
             }
-            tasks.add(new Deadline(inputParts[0], inputParts[1]));
+            Deadline deadline = new Deadline(inputParts[0], inputParts[1]);
+            if (deadline.toString().isBlank()) {
+                return;
+            }
+            tasks.add(deadline);
             FileIO.addEntry("D|0|" + inputParts[0] + "|" + inputParts[1] + "\n");
 
         } else if (input.startsWith("event")) {
@@ -87,7 +91,11 @@ public class Tasks {
                 System.out.println("\tPlease provide both start and end times for the event!");
                 return;
             }
-            tasks.add(new Event(inputParts[0], fromTo[0], fromTo[1]));
+            Event event = new Event(inputParts[0], fromTo[0], fromTo[1]);
+            if (event.toString().isBlank()) {
+                return;
+            }
+            tasks.add(event);
             FileIO.addEntry("E|0|" + inputParts[0] + "|" + fromTo[0] + "|" + fromTo[1] + "\n");
 
         } else {
@@ -134,6 +142,35 @@ public class Tasks {
             System.out.println(
                 String.format("\t%d. %s", 
                     i + 1, tasks.get(i)));
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
+    public void showTasksOn(String input) {
+        String date = input.replace("show tasks on", "")
+            .stripLeading();
+        if (date.isBlank()) {
+            System.out.println(HORIZONTAL_LINE + "\tPlease provide a date!" + HORIZONTAL_LINE);
+            return;
+        }
+        System.out.println(HORIZONTAL_LINE + "\tHere are the tasks on " + date + ":");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task instanceof Deadline) {
+                Deadline deadline = (Deadline) task;
+                if (deadline.isOnDate(date)) {
+                    System.out.println(
+                        String.format("\t%d. %s", 
+                            i + 1, deadline));
+                }
+            } else if (task instanceof Event) {
+                Event event = (Event) task;
+                if (event.isOnDate(date)) {
+                    System.out.println(
+                        String.format("\t%d. %s", 
+                            i + 1, event));
+                }
+            }
         }
         System.out.println(HORIZONTAL_LINE);
     }

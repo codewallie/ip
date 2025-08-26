@@ -21,6 +21,8 @@ public class Bro {
                 tasks.unmarkTask(input);
             } else if (input.startsWith("delete")) {
                 tasks.deleteTask(input);
+            } else if (input.startsWith("show tasks on")) {
+                tasks.showTasksOn(input);
             } else {
                 tasks.addTask(input);
             }
