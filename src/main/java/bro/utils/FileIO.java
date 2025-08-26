@@ -1,3 +1,4 @@
+package bro.utils;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -5,6 +6,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import bro.tasks.Deadline;
+import bro.tasks.Event;
+import bro.tasks.Task;
+import bro.tasks.Todo;
 
 public class FileIO {
     public static final String FOLDER_PATH = "./data";
