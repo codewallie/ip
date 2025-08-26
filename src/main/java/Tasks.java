@@ -12,12 +12,10 @@ public class Tasks {
         this.tasks = tasks;
      }
 
-     public void markTask(String input) {
+     public void markTask(String[] input) {
         try {
             Task task = tasks.get(
-                Integer.parseInt(
-                    input.replace("mark ", ""))
-                    - 1);
+                Integer.parseInt(input[1]) - 1);
             task.markAsDone();
             FileIO.updateByDescription(task.toDataString());
         } catch (IndexOutOfBoundsException e) {
@@ -29,12 +27,10 @@ public class Tasks {
         }
      }
 
-     public void unmarkTask(String input) {
+     public void unmarkTask(String[] input) {
         try {
             Task task = tasks.get(
-                Integer.parseInt(
-                    input.replace("unmark ", ""))
-                    - 1);
+                Integer.parseInt(input[1]) - 1);
             task.markAsUndone();
             FileIO.updateByDescription(task.toDataString());
         } catch (IndexOutOfBoundsException e) {
@@ -46,58 +42,20 @@ public class Tasks {
         }
      }
 
-     public void addTask(String input) {
-        if (input.startsWith("todo")) {
-            input = input.replace("todo", "").stripLeading();
-            if (input.isBlank()) {
-                System.out.println("\tPlease provide a description for the todo!");
-                return;
-            }
-            tasks.add(new Todo(input));
-            FileIO.addEntry("T|0|" + input + "\n");
-
-        } else if (input.startsWith("deadline")) {
-            String[] inputParts = input.replace("deadline", "")
-                .stripLeading()
-                .split(" /by ");
-            if (inputParts[0].isBlank()) {
-                System.out.println("\tPlease provide a description for the deadline!");
-                return;
-            } else if (inputParts.length < 2) {
-                System.out.println("\tPlease provide a deadline!");
-                return;
-            }
-            Deadline deadline = new Deadline(inputParts[0], inputParts[1]);
-            if (deadline.toString().isBlank()) {
-                return;
-            }
+     public void addTask(String[] input) {
+        String command = input[0];
+        if (command.equals("todo")) {
+            Todo todo = new Todo(input[1]);
+            tasks.add(todo);
+            FileIO.addEntry(todo.toDataString() + "\n");
+        } else if (command.equals("deadline")) {
+            Deadline deadline = new Deadline(input[1], input[2]);
             tasks.add(deadline);
-            FileIO.addEntry("D|0|" + inputParts[0] + "|" + inputParts[1] + "\n");
-
-        } else if (input.startsWith("event")) {
-            String[] inputParts = input.replace("event", "")
-                .stripLeading()
-                .split(" /from ");
-            if (inputParts[0].isBlank()) {
-                System.out.println("\tPlease provide a description for the event!");
-                return;
-            } else if (inputParts.length < 2) {
-                System.out.println("\tPlease provide an event time range!");
-                return;
-            }
-
-            String[] fromTo = inputParts[1].split(" /to ");
-            if (fromTo.length < 2) {
-                System.out.println("\tPlease provide both start and end times for the event!");
-                return;
-            }
-            Event event = new Event(inputParts[0], fromTo[0], fromTo[1]);
-            if (event.toString().isBlank()) {
-                return;
-            }
+            FileIO.addEntry(deadline.toDataString() + "\n");
+        } else if (command.equals("event")) {
+            Event event = new Event(input[1], input[2], input[3]);
             tasks.add(event);
-            FileIO.addEntry("E|0|" + inputParts[0] + "|" + fromTo[0] + "|" + fromTo[1] + "\n");
-
+            FileIO.addEntry(event.toDataString() + "\n");
         } else {
             System.out.println(HORIZONTAL_LINE + "\tUnknown command!" + HORIZONTAL_LINE);
             return;
@@ -112,16 +70,11 @@ public class Tasks {
                 HORIZONTAL_LINE));
      }
 
-     public void deleteTask(String input) {
-        input = input.replace("delete", "").replaceFirst(" ", "");
-        if (input.isBlank()) {
-            System.out.println(HORIZONTAL_LINE + "\tPlease provide a task number to delete!" + HORIZONTAL_LINE);
-            return;
-        }
+     public void deleteTask(String[] input) {
         try {
-            Task task = tasks.get(Integer.parseInt(input) - 1);
+            Task task = tasks.get(Integer.parseInt(input[1]) - 1);
             String deletedTaskData = task.toDataString();
-            tasks.remove(Integer.parseInt(input) - 1);
+            tasks.remove(Integer.parseInt(input[1]) - 1);
             FileIO.deleteByEntry(deletedTaskData);
             System.out.println(
                 String.format(
@@ -146,9 +99,8 @@ public class Tasks {
         System.out.println(HORIZONTAL_LINE);
     }
 
-    public void showTasksOn(String input) {
-        String date = input.replace("show tasks on", "")
-            .stripLeading();
+    public void showTasksOn(String[] input) {
+        String date = input[1];
         if (date.isBlank()) {
             System.out.println(HORIZONTAL_LINE + "\tPlease provide a date!" + HORIZONTAL_LINE);
             return;
