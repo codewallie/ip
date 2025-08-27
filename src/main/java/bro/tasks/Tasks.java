@@ -129,4 +129,13 @@ public class Tasks {
         }
         System.out.println(HORIZONTAL_LINE);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append(String.format("%d. %s\n", i + 1, tasks.get(i).toString()));
+        }
+        return sb.toString();
+    }
 }

@@ -16,7 +16,7 @@ public class FileIO {
     public static final String FOLDER_PATH = "./data";
     public static final String FILE_PATH = FOLDER_PATH + "/bro.txt";
 
-    public static boolean folderExists() {
+    private static boolean folderExists() {
         try {
             Path path = Paths.get(FOLDER_PATH);
             if (!Files.exists(path)) {
@@ -29,7 +29,7 @@ public class FileIO {
         }
     }
 
-    public static boolean fileExists() {
+    private static boolean fileExists() {
         try {
             if (!folderExists()) {
                 return false;
