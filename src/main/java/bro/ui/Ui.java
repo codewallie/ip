@@ -39,6 +39,8 @@ public class Ui {
                 || command.equals("deadline")
                 || command.equals("event")) {
                 tasks.addTask(commandData);
+            } else if (command.equals("find")) {
+                tasks.findTasks(commandData);  
             } else if (command.equals("error")) {
                 // do nothing, error message already printed in Parser
             } else if (commandData[0].equals("unknown")) {

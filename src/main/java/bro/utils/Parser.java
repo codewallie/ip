@@ -92,6 +92,15 @@ public class Parser {
                 return new String[] {"error"};
             }
             commandData = new String[] {"event", inputParts[0], fromTo[0], fromTo[1]};
+        } else if (input.startsWith("find")) {
+            commandData = new String[] {"find", 
+                input.replace("find", "")
+                .stripLeading()
+            };
+            if (commandData.length < 2 || commandData[1].isBlank()) {
+                System.out.println("\tPlease provide a search term!");
+                return new String[] {"error"};
+            }
         } else {
             commandData = new String[] {"unknown"};
         }

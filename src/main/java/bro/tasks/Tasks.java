@@ -130,6 +130,20 @@ public class Tasks {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    public void findTasks(String[] input) {
+        String keyword = input[1];
+        System.out.println(HORIZONTAL_LINE + "\tHere are the matching tasks in your list:");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.description.contains(keyword)) {
+                System.out.println(
+                    String.format("\t%d. %s", 
+                        i + 1, task));
+            }
+        }
+        System.out.println(HORIZONTAL_LINE);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
