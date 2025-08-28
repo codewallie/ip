@@ -1,4 +1,5 @@
 package bro.utils;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,7 +16,7 @@ import bro.tasks.Todo;
 /**
  * Handles file input and output operations for storing and retrieving tasks.
  */
-public class FileIO {
+public class FileIo {
     public static final String FOLDER_PATH = "./data";
     public static final String FILE_PATH = FOLDER_PATH + "/bro.txt";
 
@@ -96,6 +97,7 @@ public class FileIO {
                 Files.write(
                         Paths.get(FILE_PATH),
                         currentData.getBytes());
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -122,6 +124,7 @@ public class FileIO {
                 Files.write(
                         Paths.get(FILE_PATH),
                         currentData.getBytes());
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -160,6 +163,7 @@ public class FileIO {
                     }
                 }
                 reader.close();
+
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 return new ArrayList<Task>();
