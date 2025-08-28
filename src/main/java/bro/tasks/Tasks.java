@@ -3,18 +3,32 @@ import java.util.ArrayList;
 
 import bro.utils.FileIO;
 
+/**
+ * Manages an ArrayList of tasks, allowing addition, deletion, marking, unmarking, and listing of tasks.
+ */
 public class Tasks {
      private ArrayList<Task> tasks;
      private static final String HORIZONTAL_LINE = "\t_____________________________________\n";
      
+     /**
+      * Creates a new Tasks object with an empty task list.
+      */
      public Tasks() {
         this.tasks = new ArrayList<>();
      }
 
+     /**
+      * Creates a new Tasks object with the given task list.
+      * @param tasks The initial list of tasks.
+      */
      public Tasks(ArrayList<Task> tasks) {
         this.tasks = tasks;
      }
 
+     /**
+      * Marks the task at the supplied index as done.
+      * @param input The input array where the second element is the task index.
+      */
      public void markTask(String[] input) {
         try {
             Task task = tasks.get(
@@ -30,6 +44,10 @@ public class Tasks {
         }
      }
 
+     /**
+      * Marks the task at the supplied index as not done.
+      * @param input The input array where the second element is the task index.
+      */
      public void unmarkTask(String[] input) {
         try {
             Task task = tasks.get(
@@ -45,6 +63,10 @@ public class Tasks {
         }
      }
 
+     /**
+      * Adds a new task to the task list based on the command.
+      * @param input The input array where the first element is the command and the subsequent elements are the task details.
+      */
      public void addTask(String[] input) {
         String command = input[0];
         if (command.equals("todo")) {
@@ -73,6 +95,10 @@ public class Tasks {
                 HORIZONTAL_LINE));
      }
 
+     /**
+      * Deletes the task at the supplied index from the task list.
+      * @param input The input array where the second element is the task index.
+      */
      public void deleteTask(String[] input) {
         try {
             Task task = tasks.get(Integer.parseInt(input[1]) - 1);
@@ -92,6 +118,9 @@ public class Tasks {
         }
      }
 
+    /**
+     * Lists all tasks in the task list.
+     */
      public void listTasks() {
         System.out.println(HORIZONTAL_LINE + "\tHere are the tasks in your list:");
         for (int i = 0; i < tasks.size(); i++) {
@@ -102,6 +131,10 @@ public class Tasks {
         System.out.println(HORIZONTAL_LINE);
     }
 
+    /**
+     * Shows all tasks that occur on the specified date.
+     * @param input The input array where the second element is the date in d/M/yyyy format.
+     */
     public void showTasksOn(String[] input) {
         String date = input[1];
         if (date.isBlank()) {

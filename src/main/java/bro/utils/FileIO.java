@@ -12,10 +12,17 @@ import bro.tasks.Event;
 import bro.tasks.Task;
 import bro.tasks.Todo;
 
+/**
+ * Handles file input and output operations for storing and retrieving tasks.
+ */
 public class FileIO {
     public static final String FOLDER_PATH = "./data";
     public static final String FILE_PATH = FOLDER_PATH + "/bro.txt";
 
+    /**
+     * Checks if the data folder exists, and creates it if it does not.
+     * @return true if the folder exists or was created successfully, false otherwise.
+     */
     private static boolean folderExists() {
         try {
             Path path = Paths.get(FOLDER_PATH);
@@ -29,6 +36,10 @@ public class FileIO {
         }
     }
 
+    /**
+     * Checks if the data file exists, and creates it if it does not.
+     * @return true if the file exists or was created successfully, false otherwise.
+     */
     private static boolean fileExists() {
         try {
             if (!folderExists()) {
@@ -43,6 +54,10 @@ public class FileIO {
         }
     }
 
+    /**
+     * Appends a new entry to the data file.
+     * @param entry The entry to append.
+     */
     public static void addEntry(String entry) {
         if (fileExists()) {
             try {
@@ -56,6 +71,10 @@ public class FileIO {
         }
     }
 
+    /**
+     * Updates an existing entry in the data file based on its description.
+     * @param updatedEntry The updated entry to replace the existing one.
+     */
     public static void updateByDescription(String updatedEntry) {
         String type = updatedEntry.substring(0, 1);
         String description = updatedEntry.split("[|]")[2];
@@ -83,6 +102,10 @@ public class FileIO {
         }
     }
 
+    /**
+     * Deletes an entry from the data file.
+     * @param deletedEntry The entry to delete.
+     */
     public static void deleteByEntry(String deletedEntry) {
         if (fileExists()) {
             try {
@@ -105,6 +128,10 @@ public class FileIO {
         }
     }
 
+    /**
+     * Loads tasks from the data file into an ArrayList. Used during application startup.
+     * @return An ArrayList of tasks loaded from the file.
+     */
     public static ArrayList<Task> loadData() {
         ArrayList<Task> tasks = new ArrayList<Task>();
         if (fileExists()) {
