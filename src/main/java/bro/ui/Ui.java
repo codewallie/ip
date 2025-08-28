@@ -5,6 +5,9 @@ import bro.utils.Parser;
 
 import bro.tasks.Tasks;
 
+/**
+ * Handles user interactions, including reading input and displaying messages.
+ */
 public class Ui {
     private static final String NAME = "Bro";
     private static final String HORIZONTAL_LINE = "_____________________________________";
@@ -51,11 +54,18 @@ public class Ui {
         printBye();
     }
 
+    /**
+     * Reads a line of input from the user.
+     * @return The input string, or "blank" if the input is empty.
+     */
     private static String readInput() {
         String input = scanner.nextLine();
         return (input.isBlank() ? "blank" : input);
     }
 
+    /**
+     * Prints the welcome message when the application starts.
+     */
     private static void printHello() {
         System.out.println(
                 String.format(
@@ -65,6 +75,9 @@ public class Ui {
                         HORIZONTAL_LINE));
     }
 
+    /**
+     * Prints the goodbye message when the application ends.
+     */
     private static void printBye() {
         System.out.println(
                 String.format(

@@ -2,11 +2,19 @@ package bro.utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parses user input commands and extracts relevant data.
+ */
 public class Parser {
     public Parser() {
 
     }
-
+    
+    /**
+     * Parses the user input and extracts the command and its associated data.
+     * @param input The user input string.
+     * @return An array of strings where the first element is the command and the subsequent elements are the associated data.
+     */
     public String[] getCommandData(String input) {
         String[] commandData;
         if (input.equals("bye")) {
