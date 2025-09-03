@@ -10,11 +10,13 @@ public class Parser {
     public Parser() {
 
     }
-    
+
     /**
      * Parses the user input and extracts the command and its associated data.
+     * 
      * @param input The user input string.
-     * @return An array of strings where the first element is the command and the subsequent elements are the associated data.
+     * @return An array of strings where the first element is the command and the
+     *         subsequent elements are the associated data.
      */
     public String[] getCommandData(String input) {
         String[] commandData;
@@ -59,7 +61,7 @@ public class Parser {
         };
         if (commandData.length < 2 || commandData[1].isBlank()) {
             System.out.println("\tPlease provide a task number to mark!");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide a task number to mark!" };
         }
         return commandData;
     }
@@ -71,7 +73,7 @@ public class Parser {
         };
         if (commandData.length < 2 || commandData[1].isBlank()) {
             System.out.println("\tPlease provide a task number to unmark!");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide a task number to unmark!" };
         }
         return commandData;
     }
@@ -83,7 +85,7 @@ public class Parser {
         };
         if (commandData.length < 2 || commandData[1].isBlank()) {
             System.out.println("\tPlease provide a task number to delete!");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide a task number to delete!" };
         }
         return commandData;
     }
@@ -95,7 +97,7 @@ public class Parser {
         };
         if (!dateTimeIsValid(commandData[1] + " 0000")) {
             System.out.println("\tPlease provide a date in the format: d/M/yyyy");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide a date in the format: d/M/yyyy" };
         }
         return commandData;
     }
@@ -104,7 +106,7 @@ public class Parser {
         input = input.replace("todo", "").stripLeading();
         if (input.isBlank()) {
             System.out.println("\tPlease provide a description for the todo!");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide a description for the todo!" };
         }
         String[] commandData = new String[] { "todo", input };
         return commandData;
@@ -116,13 +118,13 @@ public class Parser {
                 .split(" /by ");
         if (inputParts[0].isBlank()) {
             System.out.println("\tPlease provide a description for the deadline!");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide a description for the deadline!" };
         } else if (inputParts.length < 2) {
             System.out.println("\tPlease provide a deadline!");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide a deadline!" };
         } else if (!dateTimeIsValid(inputParts[1])) {
             System.out.println("\tPlease provide a deadline in the format: d/M/yyyy HHmm");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide a deadline in the format: d/M/yyyy HHmm" };
         }
         String[] commandData = new String[] { "deadline", inputParts[0], inputParts[1] };
         return commandData;
@@ -134,19 +136,19 @@ public class Parser {
                 .split(" /from ");
         if (inputParts[0].isBlank()) {
             System.out.println("\tPlease provide a description for the event!");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide a description for the event!" };
         } else if (inputParts.length < 2) {
             System.out.println("\tPlease provide an event time range!");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide an event time range!" };
         }
 
         String[] fromTo = inputParts[1].split(" /to ");
         if (fromTo.length < 2) {
             System.out.println("\tPlease provide both start and end times for the event!");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide both start and end times for the event!" };
         } else if (!dateTimeIsValid(fromTo[0]) || !dateTimeIsValid(fromTo[1])) {
             System.out.println("\tPlease provide event times in the format: d/M/yyyy HHmm");
-            return new String[] { "error" };
+            return new String[] { "error", "Please provide event times in the format: d/M/yyyy HHmm" };
         }
         String[] commandData = new String[] { "event", inputParts[0], fromTo[0], fromTo[1] };
         return commandData;

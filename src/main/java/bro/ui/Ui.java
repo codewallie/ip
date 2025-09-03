@@ -9,9 +9,10 @@ public class Ui {
     private static final String NAME = "Bro";
     private static final String HORIZONTAL_LINE = "_____________________________________";
     private static Scanner scanner = new Scanner(System.in);
-    
+
     /**
      * Reads a line of input from the user.
+     * 
      * @return The input string, or "blank" if the input is empty.
      */
     public String readInput() {
@@ -21,25 +22,35 @@ public class Ui {
 
     /**
      * Prints the welcome message when the application starts.
+     * 
+     * @return The welcome message string.
      */
-    public void printHello() {
+    public static String printHello() {
         System.out.println(
                 String.format(
                         "\t%s\n\tHello! I'm %s\n\tWhat can I do for you?\n\t%s",
-                        HORIZONTAL_LINE, 
-                        NAME, 
+                        HORIZONTAL_LINE,
+                        NAME,
                         HORIZONTAL_LINE));
+
+        return String.format(
+                "Hello! I'm %s\nWhat can I do for you?",
+                NAME);
     }
 
     /**
      * Prints the goodbye message when the application ends.
+     * 
+     * @return The goodbye message string.
      */
-    public void printBye() {
+    public String printBye() {
         System.out.println(
                 String.format(
                         "\t%s\n\tBye. Hope to see you again soon!\n\t%s",
-                        HORIZONTAL_LINE, 
+                        HORIZONTAL_LINE,
                         HORIZONTAL_LINE));
+
+        return "Bye. Hope to see you again soon!";
     }
 
 }
