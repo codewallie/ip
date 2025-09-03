@@ -22,7 +22,9 @@ public class FileIo {
 
     /**
      * Checks if the data folder exists, and creates it if it does not.
-     * @return true if the folder exists or was created successfully, false otherwise.
+     * 
+     * @return true if the folder exists or was created successfully, false
+     *         otherwise.
      */
     private static boolean folderExists() {
         try {
@@ -39,6 +41,7 @@ public class FileIo {
 
     /**
      * Checks if the data file exists, and creates it if it does not.
+     * 
      * @return true if the file exists or was created successfully, false otherwise.
      */
     private static boolean fileExists() {
@@ -57,6 +60,7 @@ public class FileIo {
 
     /**
      * Appends a new entry to the data file.
+     * 
      * @param entry The entry to append.
      */
     public static void addEntry(String entry) {
@@ -74,6 +78,7 @@ public class FileIo {
 
     /**
      * Updates an existing entry in the data file based on its description.
+     * 
      * @param updatedEntry The updated entry to replace the existing one.
      */
     public static void updateByDescription(String updatedEntry) {
@@ -106,6 +111,7 @@ public class FileIo {
 
     /**
      * Deletes an entry from the data file.
+     * 
      * @param deletedEntry The entry to delete.
      */
     public static void deleteByEntry(String deletedEntry) {
@@ -132,7 +138,9 @@ public class FileIo {
     }
 
     /**
-     * Loads tasks from the data file into an ArrayList. Used during application startup.
+     * Loads tasks from the data file into an ArrayList. Used during application
+     * startup.
+     * 
      * @return An ArrayList of tasks loaded from the file.
      */
     public static ArrayList<Task> loadData() {
@@ -146,20 +154,20 @@ public class FileIo {
                     String[] lineData = line.split("[|]");
                     boolean isDone = lineData[1].equals("1");
                     switch (lineData[0]) {
-                    case "T":
-                        Todo todo = new Todo(lineData[2], isDone);
-                        tasks.add(todo);
-                        break;
-                    case "D":
-                        Deadline deadline = new Deadline(lineData[2], isDone, lineData[3]);
-                        tasks.add(deadline);
-                        break;
-                    case "E":
-                        Event event = new Event(lineData[2], isDone, lineData[3], lineData[4]);
-                        tasks.add(event);
-                        break;
-                    default:
-                        System.out.println("Corrupted file!");
+                        case "T":
+                            Todo todo = new Todo(lineData[2], isDone);
+                            tasks.add(todo);
+                            break;
+                        case "D":
+                            Deadline deadline = new Deadline(lineData[2], isDone, lineData[3]);
+                            tasks.add(deadline);
+                            break;
+                        case "E":
+                            Event event = new Event(lineData[2], isDone, lineData[3], lineData[4]);
+                            tasks.add(event);
+                            break;
+                        default:
+                            System.out.println("Corrupted file!");
                     }
                 }
                 reader.close();
@@ -170,4 +178,5 @@ public class FileIo {
             }
         }
         return tasks;
-}}
+    }
+}

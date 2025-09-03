@@ -8,7 +8,9 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Creates a new Task with the given description. The task is initially not done.
+     * Creates a new Task with the given description. The task is initially not
+     * done.
+     * 
      * @param description The description of the task.
      */
     public Task(String description) {
@@ -18,8 +20,9 @@ public class Task {
 
     /**
      * Creates a new Task with the given description and status.
+     * 
      * @param description The description of the task.
-     * @param isDone The status of the task.
+     * @param isDone      The status of the task.
      */
     public Task(String description, boolean isDone) {
         this.description = description;
@@ -28,6 +31,7 @@ public class Task {
 
     /**
      * Returns the status icon of the task.
+     * 
      * @return "X" if the task is done, " " otherwise.
      */
     public String getStatusIcon() {
@@ -36,60 +40,63 @@ public class Task {
 
     /**
      * Marks the task as done.
+     * 
+     * @return A message indicating the task has been marked as done.
      */
-    public void markAsDone() {
-        printLine();
+    public String markAsDone() {
         if (isDone) {
             System.out.println("\tThis task is already marked as done!");
-            printLine();
-            return;
+            return "This task is already marked as done!";
         }
         isDone = true;
-        
+
         System.out.println(
-            String.format(
-                "\tNice! I've marked this task as done:\n\t\t%s",
-                toString()));
-        printLine();
+                String.format(
+                        "\tNice! I've marked this task as done:\n\t\t%s",
+                        toString()));
+
+        return String.format(
+                "Nice! I've marked this task as done:\n\t%s",
+                toString());
     }
 
     /**
      * Marks the task as not done.
+     * 
+     * @return A message indicating the task has been marked as not done.
      */
-    public void markAsUndone() {
-        printLine();
+    public String markAsUndone() {
         if (!isDone) {
             System.out.println("\tThis task is already marked as not done!");
-            printLine();
-            return;
+            return "This task is already marked as not done!";
         }
         isDone = false;
 
         System.out.println(
-            String.format(
-                "\tOK, I've marked this task as not done yet:\n\t\t%s",
-                toString()));
-        printLine();
+                String.format(
+                        "\tOK, I've marked this task as not done yet:\n\t\t%s",
+                        toString()));
+
+        return String.format(
+                "OK, I've marked this task as not done yet:\n\t%s",
+                toString());
     }
 
     /**
      * Converts the Task to a data string for storage.
+     * 
      * @return A string representation of the Task for storage.
      */
     public String toDataString() {
-        return String.format("|%d|%s", 
-            (isDone ? 1 : 0), 
-            description);
+        return String.format("|%d|%s",
+                (isDone ? 1 : 0),
+                description);
     }
 
     @Override
     public String toString() {
-        return String.format("[%s] %s", 
-            getStatusIcon(), 
-            description);
-    }
-
-    private void printLine() {
-        System.out.println("\t_____________________________________");
+        return String.format("[%s] %s",
+                getStatusIcon(),
+                description);
     }
 }
