@@ -58,9 +58,9 @@ public class Event extends Task {
             LocalDate fromDate = from.toLocalDate();
             LocalDate toDate = to.toLocalDate();
             LocalDate checkDate = LocalDate.parse(date, dateFormatter);
-            return (fromDate.isEqual(checkDate) 
+            return (fromDate.isEqual(checkDate)
                 || toDate.isEqual(checkDate)
-                || (checkDate.isAfter(fromDate) 
+                || (checkDate.isAfter(fromDate)
                     && checkDate.isBefore(toDate)));
         } catch (Exception e) {
             System.out.println("\tError parsing date. Please use the format: d/M/yyyy");
@@ -73,19 +73,18 @@ public class Event extends Task {
      * @return A string representation of the Event task for storage.
      */
     public String toDataString() {
-        return String.format("E|%d|%s|%s|%s", 
-            (isDone ? 1 : 0), 
+        return String.format("E|%d|%s|%s|%s", (isDone ? 1 : 0),
             description,
             from.format(formatter),
             to.format(formatter));
     }
-    
+
     @Override
     public String toString() {
         DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("d MMM yyyy hh:mma");
         try {
-            return String.format("[E] [%s] %s (from: %s to: %s)", 
-                getStatusIcon(), 
+            return String.format("[E] [%s] %s (from: %s to: %s)",
+                getStatusIcon(),
                 description,
                 from.format(printFormat),
                 to.format(printFormat));

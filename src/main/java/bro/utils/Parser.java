@@ -13,7 +13,7 @@ public class Parser {
 
     /**
      * Parses the user input and extracts the command and its associated data.
-     * 
+     *
      * @param input The user input string.
      * @return An array of strings where the first element is the command and the
      *         subsequent elements are the associated data.
