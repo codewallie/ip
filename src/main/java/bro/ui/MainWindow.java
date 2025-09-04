@@ -26,6 +26,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/userProfilePic.png"));
     private Image broImage = new Image(this.getClass().getResourceAsStream("/images/broProfilePic.jpg"));
 
+    /**
+     * Initializes the GUI
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -34,6 +37,11 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().addAll(dialogBox);
     }
 
+    /**
+     * Sets created Bro object
+     *
+     * @param b bro object.
+     */
     public void setBro(Bro b) {
         bro = b;
     }

@@ -13,8 +13,10 @@ public class Deadline extends Task {
 
     /**
      * Creates a new Deadline task with the given description and due date and time.
+     *
      * @param description The description of the task.
-     * @param by The due date and time of the task in the format "d/M/yyyy HHmm".
+     * @param by          The due date and time of the task in the format "d/M/yyyy
+     *                    HHmm".
      */
     public Deadline(String description, String by) {
         super(description);
@@ -26,10 +28,13 @@ public class Deadline extends Task {
     }
 
     /**
-     * Creates a new Deadline task with the given description, status, and due date and time.
+     * Creates a new Deadline task with the given description, status, and due date
+     * and time.
+     *
      * @param description The description of the task.
-     * @param isDone The status of the task.
-     * @param by The due date and time of the task in the format "d/M/yyyy HHmm".
+     * @param isDone      The status of the task.
+     * @param by          The due date and time of the task in the format "d/M/yyyy
+     *                    HHmm".
      */
     public Deadline(String description, boolean isDone, String by) {
         super(description, isDone);
@@ -42,6 +47,7 @@ public class Deadline extends Task {
 
     /**
      * Checks if the deadline falls on the given date.
+     *
      * @param date The date to check in the format "d/M/yyyy".
      * @return true if the deadline falls on the given date, false otherwise.
      */
@@ -49,7 +55,7 @@ public class Deadline extends Task {
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         try {
             LocalDate checkDate = LocalDate.parse(date, dateFormatter);
-            return by.toLocalDate().isEqual(checkDate);        
+            return by.toLocalDate().isEqual(checkDate);
         } catch (Exception e) {
             System.out.println("\tError parsing date. Please use the format: d/M/yyyy");
             return false;
@@ -58,23 +64,23 @@ public class Deadline extends Task {
 
     /**
      * Converts the Deadline task to a data string for storage.
+     *
      * @return A string representation of the Deadline task for storage.
      */
     public String toDataString() {
-        return String.format("D|%d|%s|%s", 
-            (isDone ? 1 : 0), 
-            description,
-            by.format(formatter));
+        return String.format("D|%d|%s|%s", (isDone ? 1 : 0),
+                description,
+                by.format(formatter));
     }
-    
+
     @Override
     public String toString() {
         DateTimeFormatter printFormat = DateTimeFormatter.ofPattern("d MMM yyyy hh:mma");
         try {
-            return String.format("[D] [%s] %s (by: %s)", 
-                getStatusIcon(), 
-                description,
-                by.format(printFormat));
+            return String.format("[D] [%s] %s (by: %s)",
+                    getStatusIcon(),
+                    description,
+                    by.format(printFormat));
         } catch (Exception e) {
             System.out.println("\tError parsing date. Please use the format: d/M/yyyy");
             return "";

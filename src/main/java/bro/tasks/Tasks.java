@@ -9,8 +9,8 @@ import bro.utils.FileIo;
  * unmarking, and listing of tasks.
  */
 public class Tasks {
-    private ArrayList<Task> tasks;
     private static final String HORIZONTAL_LINE = "\t_____________________________________\n";
+    private ArrayList<Task> tasks;
 
     /**
      * Creates a new Tasks object with an empty task list.
@@ -21,7 +21,7 @@ public class Tasks {
 
     /**
      * Creates a new Tasks object with the given task list.
-     * 
+     *
      * @param tasks The initial list of tasks.
      */
     public Tasks(ArrayList<Task> tasks) {
@@ -30,7 +30,7 @@ public class Tasks {
 
     /**
      * Marks the task at the supplied index as done.
-     * 
+     *
      * @param input The input array where the second element is the task index.
      * @return A message indicating the task has been marked as done.
      */
@@ -62,7 +62,7 @@ public class Tasks {
 
     /**
      * Marks the task at the supplied index as not done.
-     * 
+     *
      * @param input The input array where the second element is the task index.
      * @return A message indicating the task has been marked as not done.
      */
@@ -99,7 +99,7 @@ public class Tasks {
 
     /**
      * Adds a new task to the task list based on the command.
-     * 
+     *
      * @param input The input array where the first element is the command and the
      *              subsequent elements are the task details.
      * @return A message indicating the task has been added.
@@ -144,7 +144,7 @@ public class Tasks {
 
     /**
      * Deletes the task at the supplied index from the task list.
-     * 
+     *
      * @param input The input array where the second element is the task index.
      * @return A message indicating the task has been deleted.
      */
@@ -192,7 +192,7 @@ public class Tasks {
 
     /**
      * Lists all tasks in the task list.
-     * 
+     *
      * @return A string representation of all tasks in the list.
      */
     public String listTasks() {
@@ -214,7 +214,7 @@ public class Tasks {
 
     /**
      * Shows all tasks that occur on the specified date.
-     * 
+     *
      * @param input The input array where the second element is the date in d/M/yyyy
      *              format.
      * @return A message listing all tasks on the specified date.
@@ -264,7 +264,7 @@ public class Tasks {
     /**
      * Finds and lists all tasks that contain the specified keyword in their
      * description.
-     * 
+     *
      * @param input The input array where the second element is the keyword to
      *              search for.
      */

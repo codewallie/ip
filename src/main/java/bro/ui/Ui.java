@@ -12,7 +12,7 @@ public class Ui {
 
     /**
      * Reads a line of input from the user.
-     * 
+     *
      * @return The input string, or "blank" if the input is empty.
      */
     public String readInput() {
@@ -22,7 +22,7 @@ public class Ui {
 
     /**
      * Prints the welcome message when the application starts.
-     * 
+     *
      * @return The welcome message string.
      */
     public static String printHello() {
@@ -40,7 +40,7 @@ public class Ui {
 
     /**
      * Prints the goodbye message when the application ends.
-     * 
+     *
      * @return The goodbye message string.
      */
     public String printBye() {
