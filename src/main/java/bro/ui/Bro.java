@@ -78,6 +78,10 @@ public class Bro extends Application {
                 assert commandData.length == 4 : "Missing/Extra field in event data";
                 tasks.addTask(commandData);
                 break;
+            case "find":
+                assert commandData.length == 2 : "Missing/Extra field in find data";
+                tasks.findTasks(commandData);
+                break;
             case "error":
                 break;
             case "unknown":
@@ -129,6 +133,10 @@ public class Bro extends Application {
         case "event":
             assert commandData.length == 4 : "Missing/Extra field in event data";
             output = tasks.addTask(commandData);
+            break;
+        case "find":
+            assert commandData.length == 2 : "Missing/Extra field in find data";
+            output = tasks.findTasks(commandData);
             break;
         case "error":
             output = commandData[1];
