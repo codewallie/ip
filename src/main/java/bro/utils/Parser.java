@@ -47,6 +47,9 @@ public class Parser {
         } else if (input.startsWith("event")) {
             commandData = parseEventCommand(input);
 
+        } else if (input.startsWith("find")) {
+            commandData = parseFindCommand(input);
+            
         } else {
             commandData = new String[] { "unknown" };
         }
@@ -152,6 +155,16 @@ public class Parser {
             return new String[] { "error", "Please provide event times in the format: d/M/yyyy HHmm" };
         }
         String[] commandData = new String[] { "event", inputParts[0], fromTo[0], fromTo[1] };
+        return commandData;
+    }
+
+    private String[] parseFindCommand(String input) {
+        String keyword = input.replace("find", "").stripLeading();
+        if (keyword.isBlank()) {
+            System.out.println("\tPlease provide a keyword to find!");
+            return new String[] { "error", "Please provide a keyword to find!" };
+        }
+        String[] commandData = new String[] { "find", keyword };
         return commandData;
     }
 
