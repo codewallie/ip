@@ -51,6 +51,7 @@ public class Parser {
             commandData = new String[] { "unknown" };
         }
 
+        assert commandData != null : "commandData should not be null";
         return commandData;
     }
 
