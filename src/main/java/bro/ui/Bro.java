@@ -37,13 +37,15 @@ public class Bro extends Application {
     }
 
     /**
-     * Starts the Bro application, allowing user interaction.
+     * Starts the Bro application, allowing user interaction (CLI).
      */
     public void run() {
-        ui.printHello();
+        Ui.printHello();
         String input = ui.readInput();
         while (input != null) {
             String[] commandData = parser.getCommandData(input);
+            assert commandData.length != 0 : "commandData should not be empty";
+
             String command = commandData[0];
             switch (command) {
             case "bye":
@@ -65,12 +67,15 @@ public class Bro extends Application {
                 tasks.showTasksOn(commandData);
                 break;
             case "todo":
+                assert commandData.length == 2 : "Missing/Extra field in todo data";
                 tasks.addTask(commandData);
                 break;
             case "deadline":
+                assert commandData.length == 3 : "Missing/Extra field in deadline data";
                 tasks.addTask(commandData);
                 break;
             case "event":
+                assert commandData.length == 4 : "Missing/Extra field in event data";
                 tasks.addTask(commandData);
                 break;
             case "error":
@@ -114,12 +119,15 @@ public class Bro extends Application {
             output = tasks.showTasksOn(commandData);
             break;
         case "todo":
+            assert commandData.length == 2 : "Missing/Extra field in todo data";
             output = tasks.addTask(commandData);
             break;
         case "deadline":
+            assert commandData.length == 3 : "Missing/Extra field in deadline data";
             output = tasks.addTask(commandData);
             break;
         case "event":
+            assert commandData.length == 4 : "Missing/Extra field in event data";
             output = tasks.addTask(commandData);
             break;
         case "error":

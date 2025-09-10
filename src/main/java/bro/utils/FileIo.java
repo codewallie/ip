@@ -83,7 +83,11 @@ public class FileIo {
      */
     public static void updateByDescription(String updatedEntry) {
         String type = updatedEntry.substring(0, 1);
+        assert type != "" : "type should not be empty";
+
         String description = updatedEntry.split("[|]")[2];
+        assert description != "" : "description should not be empty";
+        
         if (fileExists()) {
             try {
                 File data = new File(FILE_PATH);
