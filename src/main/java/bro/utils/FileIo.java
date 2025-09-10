@@ -90,18 +90,9 @@ public class FileIo {
         
         if (fileExists()) {
             try {
-                String currentData = "";
                 File data = new File(FILE_PATH);
                 Scanner reader = new Scanner(data);
-                while (reader.hasNextLine()) {
-                    String line = reader.nextLine();
-                    String[] lineData = line.split("[|]");
-                    if (lineData[0].equals(type) && lineData[2].equals(description)) {
-                        currentData += updatedEntry + System.lineSeparator();
-                    } else {
-                        currentData += line + System.lineSeparator();
-                    }
-                }
+                String currentData = updateDataEntry(updatedEntry, type, description, reader);
                 reader.close();
                 Files.write(
                         Paths.get(FILE_PATH),
@@ -111,6 +102,31 @@ public class FileIo {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    /**
+     * Helper method to update a specific entry in the data file.
+     *
+     * @param updatedEntry The updated entry to replace the existing one.
+     * @param type The type of the task (T, D, or E).
+     * @param description The description of the task.
+     * @param reader A Scanner object to read the data file.
+     * @return The updated content of the data file.
+     */
+    private static String updateDataEntry(String updatedEntry, String type, String description,
+            Scanner reader) {
+        String currentData = "";
+        while (reader.hasNextLine()) {
+            String line = reader.nextLine();
+            String[] lineData = line.split("[|]");
+            if (lineData[0].equals(type) && lineData[2].equals(description)) {
+                currentData += updatedEntry + System.lineSeparator();
+            } else {
+                currentData += line + System.lineSeparator();
+            }
+        }
+
+        return currentData;
     }
 
     /**
@@ -153,27 +169,7 @@ public class FileIo {
             try {
                 File data = new File(FILE_PATH);
                 Scanner reader = new Scanner(data);
-                while (reader.hasNextLine()) {
-                    String line = reader.nextLine();
-                    String[] lineData = line.split("[|]");
-                    boolean isDone = lineData[1].equals("1");
-                    switch (lineData[0]) {
-                    case "T":
-                        Todo todo = new Todo(lineData[2], isDone);
-                        tasks.add(todo);
-                        break;
-                    case "D":
-                        Deadline deadline = new Deadline(lineData[2], isDone, lineData[3]);
-                        tasks.add(deadline);
-                        break;
-                    case "E":
-                        Event event = new Event(lineData[2], isDone, lineData[3], lineData[4]);
-                        tasks.add(event);
-                        break;
-                    default:
-                        System.out.println("Corrupted file!");
-                    }
-                }
+                addTaskToList(tasks, reader);
                 reader.close();
 
             } catch (Exception e) {
@@ -182,5 +178,35 @@ public class FileIo {
             }
         }
         return tasks;
+    }
+
+    /**
+     * Helper method to add tasks to the list from the data file.
+     *
+     * @param tasks The list of tasks to populate.
+     * @param reader A Scanner object to read the data file.
+     */
+    private static void addTaskToList(ArrayList<Task> tasks, Scanner reader) {
+        while (reader.hasNextLine()) {
+            String line = reader.nextLine();
+            String[] lineData = line.split("[|]");
+            boolean isDone = lineData[1].equals("1");
+            switch (lineData[0]) {
+            case "T":
+                Todo todo = new Todo(lineData[2], isDone);
+                tasks.add(todo);
+                break;
+            case "D":
+                Deadline deadline = new Deadline(lineData[2], isDone, lineData[3]);
+                tasks.add(deadline);
+                break;
+            case "E":
+                Event event = new Event(lineData[2], isDone, lineData[3], lineData[4]);
+                tasks.add(event);
+                break;
+            default:
+                System.out.println("Corrupted file!");
+            }
+        }
     }
 }
