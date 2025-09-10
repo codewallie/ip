@@ -235,29 +235,40 @@ public class Tasks {
         String output = "Here are the tasks on " + date + ":";
 
         for (int i = 0; i < tasks.size(); i++) {
-            Task task = tasks.get(i);
-            if (task instanceof Deadline) {
-                Deadline deadline = (Deadline) task;
-                if (deadline.isOnDate(date)) {
-                    System.out.println(
-                            String.format("\t%d. %s",
-                                    i + 1, deadline));
-
-                    output += String.format("\n%d. %s", i + 1, deadline);
-                }
-            } else if (task instanceof Event) {
-                Event event = (Event) task;
-                if (event.isOnDate(date)) {
-                    System.out.println(
-                            String.format("\t%d. %s",
-                                    i + 1, event));
-
-                    output += String.format("\n%d. %s", i + 1, event);
-                }
-            }
+            output += getInfoIfTaskOn(date, i);
         }
 
         System.out.println(HORIZONTAL_LINE);
+        return output;
+    }
+
+    /**
+     * Helper method to get task info if it occurs on the specified date.
+     *
+     * @param date The date to check in the format "d/M/yyyy".
+     * @param index The index of the task in the task list.
+     * @return A string representation of the task if it occurs on the specified date, an empty string otherwise.
+     */
+    private String getInfoIfTaskOn(String date, int index) {
+        String output = "";
+        Task task = tasks.get(index);
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            if (deadline.isOnDate(date)) {
+                System.out.println(
+                        String.format("\t%d. %s", index + 1, deadline));
+
+                output = String.format("\n%d. %s", index + 1, deadline);
+            }
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            if (event.isOnDate(date)) {
+                System.out.println(
+                        String.format("\t%d. %s", index + 1, event));
+
+                output = String.format("\n%d. %s", index + 1, event);
+            }
+        }
         return output;
     }
 
