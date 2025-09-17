@@ -2,6 +2,9 @@ package bro.commands;
 
 import bro.tasks.Tasks;
 
+/**
+ * Represents a command for unknown or unrecognized inputs.
+ */
 public class UnknownCommand extends Command {
     /**
      * Creates a new UnknownCommand.
@@ -16,7 +19,6 @@ public class UnknownCommand extends Command {
      */
     @Override
     public String execute(Tasks tasks) {
-        return "I'm sorry, but I don't know what that means!";
+        return "I'm sorry bro, but I don't know what that means.";
     }
-    
 }

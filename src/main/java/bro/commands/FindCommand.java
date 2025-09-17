@@ -3,6 +3,9 @@ package bro.commands;
 import bro.tasks.Task;
 import bro.tasks.Tasks;
 
+/**
+ * Represents a command to find tasks containing a specific keyword.
+ */
 public class FindCommand extends Command {
     private String keyword;
 
@@ -22,7 +25,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(Tasks tasks) {
-        String output = "Here are the matching tasks in your list:";
+        String output = "Here bro, these are the matching tasks in your list:";
 
         for (int i = 0; i < tasks.getSize(); i++) {
             Task task = tasks.getEntry(i);
@@ -30,8 +33,6 @@ public class FindCommand extends Command {
                 output += String.format("\n%d. %s", i + 1, task);
             }
         }
-
         return output;
     }
-    
 }

@@ -15,7 +15,7 @@ public class TasksTest {
         Todo todo = new Todo("testTodo");
         String msg = tasks.addTask(todo);
 
-        assertTrue(msg.contains("Got it. I've added this task:"));
+        assertTrue(msg.contains("Got it bro! I've added this task:"));
         assertTrue(msg.contains("testTodo"));
         assertEquals(1, tasks.getSize());
         assertTrue(tasks.getEntry(0) instanceof Todo);
@@ -28,7 +28,7 @@ public class TasksTest {
         Deadline deadline = new Deadline("testDeadline", "2/12/2019 0000");
         String msg = tasks.addTask(deadline);
 
-        assertTrue(msg.contains("Got it. I've added this task:"));
+        assertTrue(msg.contains("Got it bro! I've added this task:"));
         assertTrue(msg.contains("testDeadline"));
         assertEquals(1, tasks.getSize());
         assertTrue(tasks.getEntry(0) instanceof Deadline);
@@ -41,7 +41,7 @@ public class TasksTest {
         Event event = new Event("testEvent", "2/12/2019 0000", "2/12/2019 1000");
         String msg = tasks.addTask(event);
 
-        assertTrue(msg.contains("Got it. I've added this task:"));
+        assertTrue(msg.contains("Got it bro! I've added this task:"));
         assertTrue(msg.contains("testEvent"));
         assertEquals(1, tasks.getSize());
         assertTrue(tasks.getEntry(0) instanceof Event);
@@ -55,7 +55,8 @@ public class TasksTest {
         tasks.addTask(todo);
         String msg = tasks.deleteTask(0);
 
-        assertTrue(msg.contains("Noted. I've removed this task:"));
+        assertTrue(msg.contains("Sure bro! I've removed this task:"),
+                "Message should contain 'Noted. I've removed this task:'");
         assertTrue(msg.contains("testTodo"));
         assertEquals(0, tasks.getSize());
     }
@@ -67,7 +68,7 @@ public class TasksTest {
         tasks.addTask(deadline);
         String msg = tasks.deleteTask(0);
 
-        assertTrue(msg.contains("Noted. I've removed this task:"));
+        assertTrue(msg.contains("Sure bro! I've removed this task:"));
         assertTrue(msg.contains("testDeadline"));
         assertEquals(0, tasks.getSize());
     }
@@ -79,7 +80,7 @@ public class TasksTest {
         tasks.addTask(event);
         String msg = tasks.deleteTask(0);
 
-        assertTrue(msg.contains("Noted. I've removed this task:"));
+        assertTrue(msg.contains("Sure bro! I've removed this task:"));
         assertTrue(msg.contains("testEvent"));
         assertEquals(0, tasks.getSize());
     }
@@ -111,7 +112,7 @@ public class TasksTest {
     public void addTask_returnsCorrectMessage() {
         Tasks tasks = new Tasks();
         String msg = tasks.addTask(new Todo("TestMsg"));
-        assertTrue(msg.contains("Got it. I've added this task:"));
+        assertTrue(msg.contains("Got it bro! I've added this task:"));
         assertTrue(msg.contains("TestMsg"));
     }
 
@@ -120,7 +121,7 @@ public class TasksTest {
         Tasks tasks = new Tasks();
         tasks.addTask(new Todo("DeleteMe"));
         String msg = tasks.deleteTask(0);
-        assertTrue(msg.contains("Noted. I've removed this task:"));
+        assertTrue(msg.contains("Sure bro! I've removed this task:"));
         assertTrue(msg.contains("DeleteMe"));
     }
 

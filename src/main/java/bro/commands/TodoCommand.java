@@ -4,6 +4,9 @@ import bro.tasks.Tasks;
 import bro.tasks.Todo;
 import bro.utils.FileIo;
 
+/**
+ * Represents a command to add a todo task.
+ */
 public class TodoCommand extends Command {
     private String description;
 

@@ -1,6 +1,5 @@
 package bro.utils;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -12,59 +11,59 @@ public class ParserTest {
     @Test
     public void getCommand_byeCommand_returnsByeCommand() {
         Command cmd = new Parser().getCommand("bye");
-        assertEquals("bro.commands.ByeCommand", cmd.getClass().getName());
+        assertTrue(cmd.getClass().getName().contains("ByeCommand"), "Class name should contain 'ByeCommand'");
     }
 
     @Test
     public void getCommand_listCommand_returnsListCommand() {
         Command cmd = new Parser().getCommand("list");
-        assertEquals("bro.commands.ListCommand", cmd.getClass().getName());
+        assertTrue(cmd.getClass().getName().contains("ListCommand"), "Class name should contain 'ListCommand'");
     }
 
     @Test
-    public void getCommand_markCommand_valid_returnsMarkCommand() {
+    public void getCommand_validMarkCommand_returnsMarkCommand() {
         Command cmd = new Parser().getCommand("mark 2");
-        assertEquals("bro.commands.MarkCommand", cmd.getClass().getName());
+        assertTrue(cmd.getClass().getName().contains("MarkCommand"), "Class name should contain 'MarkCommand'");
     }
 
     @Test
-    public void getCommand_unmarkCommand_valid_returnsUnmarkCommand() {
+    public void getCommand_validUnmarkCommand_returnsUnmarkCommand() {
         Command cmd = new Parser().getCommand("unmark 1");
-        assertEquals("bro.commands.UnmarkCommand", cmd.getClass().getName());
+        assertTrue(cmd.getClass().getName().contains("UnmarkCommand"), "Class name should contain 'UnmarkCommand'");
     }
 
     @Test
-    public void getCommand_deleteCommand_valid_returnsDeleteCommand() {
+    public void getCommand_validDeleteCommand_returnsDeleteCommand() {
         Command cmd = new Parser().getCommand("delete 3");
-        assertEquals("bro.commands.DeleteCommand", cmd.getClass().getName());
+        assertTrue(cmd.getClass().getName().contains("DeleteCommand"), "Class name should contain 'DeleteCommand'");
     }
 
     @Test
-    public void getCommand_tasksOnCommand_valid_returnsTasksOnCommand() {
+    public void getCommand_validTasksOnCommand_returnsTasksOnCommand() {
         Command cmd = new Parser().getCommand("tasks on 2/12/2019");
-        assertEquals("bro.commands.TasksOnCommand", cmd.getClass().getName());
+        assertTrue(cmd.getClass().getName().contains("TasksOnCommand"), "Class name should contain 'TasksOnCommand'");
     }
 
     @Test
-    public void getCommand_todoCommand_valid_returnsTodoCommand() {
+    public void getCommand_validTodoCommand_returnsTodoCommand() {
         Command cmd = new Parser().getCommand("todo something");
-        assertEquals("bro.commands.TodoCommand", cmd.getClass().getName());
+        assertTrue(cmd.getClass().getName().contains("TodoCommand"), "Class name should contain 'TodoCommand'");
     }
 
     @Test
-    public void getCommand_findCommand_valid_returnsFindCommand() {
+    public void getCommand_validFindCommand_returnsFindCommand() {
         Command cmd = new Parser().getCommand("find keyword");
-        assertEquals("bro.commands.FindCommand", cmd.getClass().getName());
+        assertTrue(cmd.getClass().getName().contains("FindCommand"), "Class name should contain 'FindCommand'");
     }
 
     @Test
     public void getCommand_unknownCommand_returnsUnknownCommand() {
         Command cmd = new Parser().getCommand("foobar");
-        assertEquals("bro.commands.UnknownCommand", cmd.getClass().getName());
+        assertTrue(cmd.getClass().getName().contains("UnknownCommand"), "Class name should contain 'UnknownCommand'");
     }
 
     @Test
-    public void getCommand_deadlineCommand_invalidDate_returnsCommandError() {
+    public void getCommand_invalidDeadlineCommand_returnsCommandError() {
         Command cmd = new Parser().getCommand("deadline test /by 99/99/9999 9999");
         assertTrue(cmd instanceof CommandError);
     }

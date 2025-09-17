@@ -1,10 +1,13 @@
 package bro.commands;
 
 import bro.tasks.Deadline;
-import bro.tasks.Tasks;
 import bro.tasks.Event;
 import bro.tasks.Task;
+import bro.tasks.Tasks;
 
+/**
+ * Represents a command to list tasks occurring on a specific date.
+ */
 public class TasksOnCommand extends Command {
     private String date;
 
@@ -25,10 +28,10 @@ public class TasksOnCommand extends Command {
     @Override
     public String execute(Tasks tasks) {
         if (date.isBlank()) {
-            return "Please provide a date!";
+            return "Bro... Can you do me a solid and give me a date?";
         }
 
-        String output = "Here are the tasks on " + date + ":";
+        String output = "Here bro, these are the tasks on " + date + ":";
 
         for (int i = 0; i < tasks.getSize(); i++) {
             output += getInfoIfTaskOn(tasks, date, i);
@@ -61,5 +64,4 @@ public class TasksOnCommand extends Command {
         }
         return output;
     }
-    
 }

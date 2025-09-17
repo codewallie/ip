@@ -4,9 +4,12 @@ import bro.tasks.Task;
 import bro.tasks.Tasks;
 import bro.utils.FileIo;
 
+/**
+ * Represents a command to mark a task as done.
+ */
 public class MarkCommand extends Command {
     private int taskIndex;
-    
+
     /**
      * Creates a new MarkCommand.
      */
@@ -22,11 +25,11 @@ public class MarkCommand extends Command {
             FileIo.updateByDescription(task.toDataString());
             return output;
         } catch (IndexOutOfBoundsException e) {
-            return "Invalid task number!";
+            return "Sorry bro, can you give me a valid task number?";
         } catch (NumberFormatException e) {
-            return "Please provide a valid task number!";
+            return "Sorry bro, can you give me a number?";
         } catch (Exception e) {
-            return "Error!";
+            return "Hmmmm, something's not right bro!";
         }
     }
 }

@@ -2,6 +2,9 @@ package bro.commands;
 
 import bro.tasks.Tasks;
 
+/**
+ * Represents a command that returns an error message when executed.
+ */
 public class CommandError extends Command {
     private final String errorMessage;
 

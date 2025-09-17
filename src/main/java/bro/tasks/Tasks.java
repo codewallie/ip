@@ -44,19 +44,31 @@ public class Tasks {
         return tasks.get(index);
     }
 
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param task The task to be added.
+     * @return A message confirming the addition of the task.
+     */
     public String addTask(Task task) {
         tasks.add(task);
         return String.format(
-                "Got it. I've added this task:\n%s\nNow you have %d tasks in the list.",
+                "Got it bro! I've added this task:\n%s\nNow you have %d tasks in the list.",
                 tasks.get(tasks.size() - 1),
                 tasks.size());
     }
 
+    /**
+     * Deletes the task at the specified index from the task list.
+     *
+     * @param index The index of the task to be deleted.
+     * @return A message confirming the deletion of the task.
+     */
     public String deleteTask(int index) {
         Task task = tasks.get(index); // For printing after removal
         tasks.remove(index);
         return String.format(
-                "Noted. I've removed this task:\n%s\nNow you have %d tasks in the list.",
+                "Sure bro! I've removed this task:\n%s\nNow you have %d tasks in the list.",
                 task.toString(),
                 tasks.size());
     }

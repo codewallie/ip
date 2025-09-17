@@ -26,17 +26,7 @@ public class Ui {
      */
     public static String printHello() {
         return String.format(
-                "Hello! I'm %s\nWhat can I do for you?",
+                "Hello bro! I'm %s\nWhat can a brother do for you?",
                 NAME);
     }
-
-    /**
-     * Prints the goodbye message when the application ends.
-     *
-     * @return The goodbye message string.
-     */
-    public String printBye() {
-        return "Bye. Hope to see you again soon!";
-    }
-
 }

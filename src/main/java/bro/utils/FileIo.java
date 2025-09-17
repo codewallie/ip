@@ -87,7 +87,7 @@ public class FileIo {
 
         String description = updatedEntry.split("[|]")[2];
         assert description != "" : "description should not be empty";
-        
+
         if (fileExists()) {
             try {
                 File data = new File(FILE_PATH);
