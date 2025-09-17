@@ -2,8 +2,6 @@ package bro.tasks;
 
 import java.util.ArrayList;
 
-import bro.utils.FileIo;
-
 /**
  * Manages an ArrayList of tasks, allowing addition, deletion, marking,
  * unmarking, and listing of tasks.

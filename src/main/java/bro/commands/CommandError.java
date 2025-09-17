@@ -8,7 +8,8 @@ public class CommandError extends Command {
     /**
      * Creates a new CommandError with the specified error message.
      *
-     * @param errorMessage The error message to be returned when the command is executed.
+     * @param errorMessage The error message to be returned when the command is
+     *                     executed.
      */
     public CommandError(String errorMessage) {
         this.errorMessage = errorMessage;
@@ -23,5 +24,5 @@ public class CommandError extends Command {
     public String execute(Tasks tasks) {
         return errorMessage;
     }
-    
+
 }
