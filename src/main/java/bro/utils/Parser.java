@@ -3,6 +3,20 @@ package bro.utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import bro.commands.ByeCommand;
+import bro.commands.Command;
+import bro.commands.CommandError;
+import bro.commands.DeadlineCommand;
+import bro.commands.DeleteCommand;
+import bro.commands.EventCommand;
+import bro.commands.FindCommand;
+import bro.commands.ListCommand;
+import bro.commands.MarkCommand;
+import bro.commands.TasksOnCommand;
+import bro.commands.TodoCommand;
+import bro.commands.UnknownCommand;
+import bro.commands.UnmarkCommand;
+
 /**
  * Parses user input commands and extracts relevant data.
  */
@@ -14,141 +28,151 @@ public class Parser {
      * @return An array of strings where the first element is the command and the
      *         subsequent elements are the associated data.
      */
-    public String[] getCommandData(String input) {
-        String[] commandData;
+    public Command getCommand(String input) {
+        Command command;
         if (input.equals("bye")) {
-            commandData = new String[] { "bye" };
+            command = new ByeCommand();
 
         } else if (input.equals("list")) {
-            commandData = new String[] { "list" };
+            command = new ListCommand();
 
         } else if (input.startsWith("mark")) {
-            commandData = parseMarkCommand(input);
+            command = parseMarkCommand(input);
 
         } else if (input.startsWith("unmark")) {
-            commandData = parseUnmarkCommand(input);
+            command = parseUnmarkCommand(input);
 
         } else if (input.startsWith("delete")) {
-            commandData = parseDeleteCommand(input);
+            command = parseDeleteCommand(input);
 
         } else if (input.startsWith("tasks on")) {
-            commandData = parseTasksOnCommand(input);
+            command = parseTasksOnCommand(input);
 
         } else if (input.startsWith("todo")) {
-            commandData = parseTodoCommand(input);
+            command = parseTodoCommand(input);
 
         } else if (input.startsWith("deadline")) {
-            commandData = parseDeadlineCommand(input);
+            command = parseDeadlineCommand(input);
 
         } else if (input.startsWith("event")) {
-            commandData = parseEventCommand(input);
+            command = parseEventCommand(input);
 
         } else if (input.startsWith("find")) {
-            commandData = parseFindCommand(input);
+            command = parseFindCommand(input);
             
         } else {
-            commandData = new String[] { "unknown" };
+            command = new UnknownCommand();
         }
 
-        assert commandData != null : "commandData should not be null";
-        return commandData;
+        assert command != null : "command should not be null";
+        return command;
     }
 
-    private String[] parseMarkCommand(String input) {
+    private Command parseMarkCommand(String input) {
         String[] commandData = new String[] { "mark",
                 input.replace("mark", "")
                         .stripLeading()
         };
         if (commandData.length < 2 || commandData[1].isBlank()) {
-            return new String[] { "error", "Please provide a task number to mark!" };
+            return new CommandError("Please provide a task number to mark!");
         }
-        return commandData;
+
+        Command command = new MarkCommand(
+            Integer.parseInt(commandData[1]) - 1);
+        return command;
     }
 
-    private String[] parseUnmarkCommand(String input) {
+    private Command parseUnmarkCommand(String input) {
         String[] commandData = new String[] { "unmark",
                 input.replace("unmark", "")
                         .stripLeading()
         };
         if (commandData.length < 2 || commandData[1].isBlank()) {
-            return new String[] { "error", "Please provide a task number to unmark!" };
+            return new CommandError("Please provide a task number to unmark!");
         }
-        return commandData;
+
+        Command command = new UnmarkCommand(
+            Integer.parseInt(commandData[1]) - 1);
+        return command;
     }
 
-    private String[] parseDeleteCommand(String input) {
+    private Command parseDeleteCommand(String input) {
         String[] commandData = new String[] { "delete",
                 input.replace("delete", "")
                         .stripLeading()
         };
         if (commandData.length < 2 || commandData[1].isBlank()) {
-            return new String[] { "error", "Please provide a task number to delete!" };
+            return new CommandError("Please provide a task number to delete!");
         }
-        return commandData;
+
+        Command command = new DeleteCommand(
+            Integer.parseInt(commandData[1]) - 1);
+        return command;
     }
 
-    private String[] parseTasksOnCommand(String input) {
+    private Command parseTasksOnCommand(String input) {
         String[] commandData = new String[] { "tasks on",
                 input.replace("tasks on", "")
                         .stripLeading()
         };
         if (!dateTimeIsValid(commandData[1] + " 0000")) {
-            return new String[] { "error", "Please provide a date in the format: d/M/yyyy" };
+            return new CommandError("Please provide a date in the format: d/M/yyyy");
         }
-        return commandData;
+        Command command = new TasksOnCommand(commandData[1]);
+        return command;
     }
 
-    private String[] parseTodoCommand(String input) {
+    private Command parseTodoCommand(String input) {
         input = input.replace("todo", "").stripLeading();
         if (input.isBlank()) {
-            return new String[] { "error", "Please provide a description for the todo!" };
+            return new CommandError("Please provide a description for the todo!");
         }
-        String[] commandData = new String[] { "todo", input };
-        return commandData;
+        Command command = new TodoCommand(input);
+        return command;
     }
 
-    private String[] parseDeadlineCommand(String input) {
+    private Command parseDeadlineCommand(String input) {
         String[] inputParts = input.replace("deadline", "")
                 .stripLeading()
                 .split(" /by ");
         if (inputParts[0].isBlank()) {
-            return new String[] { "error", "Please provide a description for the deadline!" };
+            return new CommandError("Please provide a description for the deadline!");
         } else if (inputParts.length < 2) {
-            return new String[] { "error", "Please provide a deadline!" };
+            return new CommandError("Please provide a deadline!");
         } else if (!dateTimeIsValid(inputParts[1])) {
-            return new String[] { "error", "Please provide a deadline in the format: d/M/yyyy HHmm" };
+            return new CommandError("Please provide a deadline in the format: d/M/yyyy HHmm");
         }
-        String[] commandData = new String[] { "deadline", inputParts[0], inputParts[1] };
-        return commandData;
+        Command command = new DeadlineCommand(inputParts[0], inputParts[1]);
+        return command;
     }
 
-    private String[] parseEventCommand(String input) {
+    private Command parseEventCommand(String input) {
         String[] inputParts = input.replace("event", "")
                 .stripLeading()
                 .split(" /from ");
         if (inputParts[0].isBlank()) {
-            return new String[] { "error", "Please provide a description for the event!" };
+            return new CommandError("Please provide a description for the event!");
         } else if (inputParts.length < 2) {
-            return new String[] { "error", "Please provide an event time range!" };
+            return new CommandError("Please provide an event time range!");
         }
 
         String[] fromTo = inputParts[1].split(" /to ");
         if (fromTo.length < 2) {
-            return new String[] { "error", "Please provide both start and end times for the event!" };
+            return new CommandError("Please provide both start and end times for the event!");
         } else if (!dateTimeIsValid(fromTo[0]) || !dateTimeIsValid(fromTo[1])) {
-            return new String[] { "error", "Please provide event times in the format: d/M/yyyy HHmm" };
+            return new CommandError("Please provide event times in the format: d/M/yyyy HHmm");
         }
-        String[] commandData = new String[] { "event", inputParts[0], fromTo[0], fromTo[1] };
-        return commandData;
+        Command command = new EventCommand(inputParts[0], fromTo[0], fromTo[1]);
+        return command;
     }
 
-    private String[] parseFindCommand(String input) {
+    private Command parseFindCommand(String input) {
         String keyword = input.replace("find", "").stripLeading();
         if (keyword.isBlank()) {
-            return new String[] { "error", "Please provide a keyword to find!" };
+            return new CommandError("Please provide a keyword to find!");
         }
-        String[] commandData = new String[] { "find", keyword };
-        return commandData;
+        Command command = new FindCommand(keyword);
+        return command;
     }
 
     private boolean dateTimeIsValid(String dateTime) {
