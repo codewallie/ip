@@ -39,6 +39,15 @@ public class Task {
     }
 
     /**
+     * Returns the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Marks the task as done.
      *
      * @return A message indicating the task has been marked as done.
@@ -49,11 +58,6 @@ public class Task {
             return "This task is already marked as done!";
         }
         isDone = true;
-
-        System.out.println(
-                String.format(
-                        "\tNice! I've marked this task as done:\n\t\t%s",
-                        toString()));
 
         return String.format(
                 "Nice! I've marked this task as done:\n\t%s",
@@ -67,15 +71,9 @@ public class Task {
      */
     public String markAsUndone() {
         if (!isDone) {
-            System.out.println("\tThis task is already marked as not done!");
             return "This task is already marked as not done!";
         }
         isDone = false;
-
-        System.out.println(
-                String.format(
-                        "\tOK, I've marked this task as not done yet:\n\t\t%s",
-                        toString()));
 
         return String.format(
                 "OK, I've marked this task as not done yet:\n\t%s",

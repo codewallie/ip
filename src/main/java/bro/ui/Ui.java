@@ -7,7 +7,6 @@ import java.util.Scanner;
  */
 public class Ui {
     private static final String NAME = "Bro";
-    private static final String HORIZONTAL_LINE = "_____________________________________";
     private static Scanner scanner = new Scanner(System.in);
 
     /**
@@ -26,13 +25,6 @@ public class Ui {
      * @return The welcome message string.
      */
     public static String printHello() {
-        System.out.println(
-                String.format(
-                        "\t%s\n\tHello! I'm %s\n\tWhat can I do for you?\n\t%s",
-                        HORIZONTAL_LINE,
-                        NAME,
-                        HORIZONTAL_LINE));
-
         return String.format(
                 "Hello! I'm %s\nWhat can I do for you?",
                 NAME);
@@ -44,12 +36,6 @@ public class Ui {
      * @return The goodbye message string.
      */
     public String printBye() {
-        System.out.println(
-                String.format(
-                        "\t%s\n\tBye. Hope to see you again soon!\n\t%s",
-                        HORIZONTAL_LINE,
-                        HORIZONTAL_LINE));
-
         return "Bye. Hope to see you again soon!";
     }
 
