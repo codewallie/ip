@@ -4,6 +4,9 @@ import bro.tasks.Task;
 import bro.tasks.Tasks;
 import bro.utils.FileIo;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
     private int taskIndex;
 
@@ -30,9 +33,11 @@ public class DeleteCommand extends Command {
             FileIo.deleteByEntry(deletedTaskData);
             return output;
         } catch (IndexOutOfBoundsException e) {
-            return "Invalid task number!";
+            return "Sorry bro, can you give me a valid task number?";
+        } catch (NumberFormatException e) {
+            return "Sorry bro, can you give me a number?";
         } catch (Exception e) {
-            return "Error!";
+            return "Hmmmm, something's not right bro!";
         }
     }
 }

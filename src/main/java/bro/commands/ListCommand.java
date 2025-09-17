@@ -2,8 +2,10 @@ package bro.commands;
 
 import bro.tasks.Tasks;
 
+/**
+ * Represents a command to list all tasks.
+ */
 public class ListCommand extends Command {
-
     /**
      * Creates a new ListCommand.
      */
@@ -17,7 +19,7 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(Tasks tasks) {
-        String output = "Here are the tasks in your list:";
+        String output = "Here bro, these are the tasks in your list:";
 
         for (int i = 0; i < tasks.getSize(); i++) {
             output += String.format("\n%d. %s",

@@ -2,13 +2,10 @@ package bro.commands;
 
 import bro.tasks.Tasks;
 
+/**
+ * Represents a command to exit the application.
+ */
 public class ByeCommand extends Command {
-    /**
-     * Creates a new ByeCommand.
-     */
-    public ByeCommand() {
-    }
-
     /**
      * Executes the command and returns the result as a string.
      *
@@ -16,7 +13,6 @@ public class ByeCommand extends Command {
      */
     @Override
     public String execute(Tasks tasks) {
-        return "Goodbye! Hope to see you again soon!";
+        return "Oh, going already? Bye bro, see you next time!";
     }
-    
 }

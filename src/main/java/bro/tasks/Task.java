@@ -54,13 +54,12 @@ public class Task {
      */
     public String markAsDone() {
         if (isDone) {
-            System.out.println("\tThis task is already marked as done!");
-            return "This task is already marked as done!";
+            return "Sorry bro, this task is already marked as done!";
         }
         isDone = true;
 
         return String.format(
-                "Nice! I've marked this task as done:\n\t%s",
+                "Good one bro! I've marked this task as done:\n\t%s",
                 toString());
     }
 
@@ -71,12 +70,12 @@ public class Task {
      */
     public String markAsUndone() {
         if (!isDone) {
-            return "This task is already marked as not done!";
+            return "Sorry bro, this task is already marked as not done!";
         }
         isDone = false;
 
         return String.format(
-                "OK, I've marked this task as not done yet:\n\t%s",
+                "Aights bro! I've marked this task as not done yet:\n\t%s",
                 toString());
     }
 

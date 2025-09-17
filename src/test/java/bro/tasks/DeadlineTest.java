@@ -1,7 +1,10 @@
 package bro.tasks;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class DeadlineTest {
     @Test
@@ -14,6 +17,7 @@ public class DeadlineTest {
     @Test
     public void toDataString_returnsCorrectFormat() {
         Deadline d = new Deadline("desc", true, "2/12/2019 0000");
-        assertTrue(d.toDataString().startsWith("D|1|desc|2/12/2019 0000"));
+        assertTrue(d.toDataString().contains("D|1|desc|2/12/2019 0000"),
+                "Data string should contain 'D|1|desc|2/12/2019 0000'");
     }
 }

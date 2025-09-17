@@ -4,6 +4,9 @@ import bro.tasks.Task;
 import bro.tasks.Tasks;
 import bro.utils.FileIo;
 
+/**
+ * Represents a command to unmark a task as not done.
+ */
 public class UnmarkCommand extends Command {
     private int taskIndex;
 
@@ -22,12 +25,11 @@ public class UnmarkCommand extends Command {
             FileIo.updateByDescription(task.toDataString());
             return output;
         } catch (IndexOutOfBoundsException e) {
-            return "Invalid task number!";
+            return "Sorry bro, can you give me a valid task number?";
         } catch (NumberFormatException e) {
-            return "Please provide a valid task number!";
+            return "Sorry bro, can you give me a number?";
         } catch (Exception e) {
-            return "Error!";
+            return "Hmmmm, something's not right bro!";
         }
     }
-    
 }

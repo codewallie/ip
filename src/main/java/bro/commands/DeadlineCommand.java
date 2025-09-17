@@ -1,9 +1,12 @@
 package bro.commands;
 
-import bro.tasks.Tasks;
 import bro.tasks.Deadline;
+import bro.tasks.Tasks;
 import bro.utils.FileIo;
 
+/**
+ * Represents a command to add a deadline task.
+ */
 public class DeadlineCommand extends Command {
     private String description;
     private String byDate;

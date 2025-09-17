@@ -1,11 +1,12 @@
 package bro.ui;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 public class LauncherTest {
     @Test
     public void main_runsWithoutException() {
-        assertDoesNotThrow(() -> Launcher.main(new String[]{}));
+        assertDoesNotThrow(() -> Launcher.main(new String[] {}));
     }
 }

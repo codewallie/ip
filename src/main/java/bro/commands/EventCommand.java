@@ -1,9 +1,12 @@
 package bro.commands;
 
-import bro.tasks.Tasks;
 import bro.tasks.Event;
+import bro.tasks.Tasks;
 import bro.utils.FileIo;
 
+/**
+ * Represents a command to add an event task.
+ */
 public class EventCommand extends Command {
     private String description;
     private String fromDate;

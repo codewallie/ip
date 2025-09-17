@@ -59,7 +59,7 @@ public class Parser {
 
         } else if (input.startsWith("find")) {
             command = parseFindCommand(input);
-            
+
         } else {
             command = new UnknownCommand();
         }
@@ -74,12 +74,16 @@ public class Parser {
                         .stripLeading()
         };
         if (commandData.length < 2 || commandData[1].isBlank()) {
-            return new CommandError("Please provide a task number to mark!");
+            return new CommandError("Hey bro, please provide a task number to mark!");
         }
 
-        Command command = new MarkCommand(
-            Integer.parseInt(commandData[1]) - 1);
-        return command;
+        try {
+            Command command = new MarkCommand(
+                    Integer.parseInt(commandData[1]) - 1);
+            return command;
+        } catch (NumberFormatException e) {
+            return new CommandError("Hey bro, please provide a valid task number to mark!");
+        }
     }
 
     private Command parseUnmarkCommand(String input) {
@@ -88,12 +92,16 @@ public class Parser {
                         .stripLeading()
         };
         if (commandData.length < 2 || commandData[1].isBlank()) {
-            return new CommandError("Please provide a task number to unmark!");
+            return new CommandError("Hey bro, please provide a task number to unmark!");
         }
 
-        Command command = new UnmarkCommand(
-            Integer.parseInt(commandData[1]) - 1);
-        return command;
+        try {
+            Command command = new UnmarkCommand(
+                    Integer.parseInt(commandData[1]) - 1);
+            return command;
+        } catch (NumberFormatException e) {
+            return new CommandError("Hey bro, please provide a valid task number to unmark!");
+        }
     }
 
     private Command parseDeleteCommand(String input) {
@@ -102,12 +110,16 @@ public class Parser {
                         .stripLeading()
         };
         if (commandData.length < 2 || commandData[1].isBlank()) {
-            return new CommandError("Please provide a task number to delete!");
+            return new CommandError("Hey bro, please provide a task number to delete!");
         }
 
-        Command command = new DeleteCommand(
-            Integer.parseInt(commandData[1]) - 1);
-        return command;
+        try {
+            Command command = new DeleteCommand(
+                    Integer.parseInt(commandData[1]) - 1);
+            return command;
+        } catch (NumberFormatException e) {
+            return new CommandError("Hey bro, please provide a valid task number to delete!");
+        }
     }
 
     private Command parseTasksOnCommand(String input) {
@@ -116,7 +128,7 @@ public class Parser {
                         .stripLeading()
         };
         if (!dateTimeIsValid(commandData[1] + " 0000")) {
-            return new CommandError("Please provide a date in the format: d/M/yyyy");
+            return new CommandError("Hey bro, please provide a date in the format: d/M/yyyy");
         }
         Command command = new TasksOnCommand(commandData[1]);
         return command;
@@ -125,7 +137,7 @@ public class Parser {
     private Command parseTodoCommand(String input) {
         input = input.replace("todo", "").stripLeading();
         if (input.isBlank()) {
-            return new CommandError("Please provide a description for the todo!");
+            return new CommandError("Hey bro, please provide a description for the todo!");
         }
         Command command = new TodoCommand(input);
         return command;
@@ -136,11 +148,11 @@ public class Parser {
                 .stripLeading()
                 .split(" /by ");
         if (inputParts[0].isBlank()) {
-            return new CommandError("Please provide a description for the deadline!");
+            return new CommandError("Hey bro, please provide a description for the deadline!");
         } else if (inputParts.length < 2) {
-            return new CommandError("Please provide a deadline!");
+            return new CommandError("Hey bro, please provide a deadline!");
         } else if (!dateTimeIsValid(inputParts[1])) {
-            return new CommandError("Please provide a deadline in the format: d/M/yyyy HHmm");
+            return new CommandError("Hey bro, please provide a deadline in the format: d/M/yyyy HHmm");
         }
         Command command = new DeadlineCommand(inputParts[0], inputParts[1]);
         return command;
@@ -151,16 +163,16 @@ public class Parser {
                 .stripLeading()
                 .split(" /from ");
         if (inputParts[0].isBlank()) {
-            return new CommandError("Please provide a description for the event!");
+            return new CommandError("Hey bro, please provide a description for the event!");
         } else if (inputParts.length < 2) {
-            return new CommandError("Please provide an event time range!");
+            return new CommandError("Hey bro, please provide an event time range!");
         }
 
         String[] fromTo = inputParts[1].split(" /to ");
         if (fromTo.length < 2) {
-            return new CommandError("Please provide both start and end times for the event!");
+            return new CommandError("Hey bro, please provide both start and end times for the event!");
         } else if (!dateTimeIsValid(fromTo[0]) || !dateTimeIsValid(fromTo[1])) {
-            return new CommandError("Please provide event times in the format: d/M/yyyy HHmm");
+            return new CommandError("Hey bro, please provide event times in the format: d/M/yyyy HHmm");
         }
         Command command = new EventCommand(inputParts[0], fromTo[0], fromTo[1]);
         return command;
@@ -169,7 +181,7 @@ public class Parser {
     private Command parseFindCommand(String input) {
         String keyword = input.replace("find", "").stripLeading();
         if (keyword.isBlank()) {
-            return new CommandError("Please provide a keyword to find!");
+            return new CommandError("Hey bro, please provide a keyword to find!");
         }
         Command command = new FindCommand(keyword);
         return command;
