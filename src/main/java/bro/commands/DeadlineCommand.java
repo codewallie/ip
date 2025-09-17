@@ -12,7 +12,7 @@ public class DeadlineCommand extends Command {
      * Creates a new DeadlineCommand with the given description and due date.
      *
      * @param description The description of the deadline task.
-     * @param byDate The due date of the deadline task.
+     * @param byDate      The due date of the deadline task.
      */
     public DeadlineCommand(String description, String byDate) {
         this.description = description;
