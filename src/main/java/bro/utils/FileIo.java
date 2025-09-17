@@ -1,6 +1,8 @@
 package bro.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -137,24 +139,34 @@ public class FileIo {
     public static void deleteByEntry(String deletedEntry) {
         if (fileExists()) {
             try {
-                String currentData = "";
-                File data = new File(FILE_PATH);
-                Scanner reader = new Scanner(data);
-                while (reader.hasNextLine()) {
-                    String line = reader.nextLine();
-                    if (!line.equals(deletedEntry)) {
-                        currentData += line + System.lineSeparator();
-                    }
-                }
-                reader.close();
-                Files.write(
-                        Paths.get(FILE_PATH),
-                        currentData.getBytes());
-
+                removeEntryFromFile(deletedEntry);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    /**
+     * Helper method to remove a specific entry from the data file.
+     *
+     * @param deletedEntry The entry to delete.
+     * @throws FileNotFoundException If the data file is not found.
+     * @throws IOException If an I/O error occurs.
+     */
+    private static void removeEntryFromFile(String deletedEntry) throws FileNotFoundException, IOException {
+        String currentData = "";
+        File data = new File(FILE_PATH);
+        Scanner reader = new Scanner(data);
+        while (reader.hasNextLine()) {
+            String line = reader.nextLine();
+            if (!line.equals(deletedEntry)) {
+                currentData += line + System.lineSeparator();
+            }
+        }
+        reader.close();
+        Files.write(
+                Paths.get(FILE_PATH),
+                currentData.getBytes());
     }
 
     /**
