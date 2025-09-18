@@ -4,7 +4,7 @@ The following AI tools were used in Visual Studio Code for code completion, gene
 1. GitHub Copilot
 2. GPT-4.1 Agent Mode
 
-These tools were solely used to assist in writing JUnit tests and Javadoc comments for the project.
+These tools were solely used to assist in writing JUnit tests, Javadoc comments and  the User Guide for the project.
 
 ## Interesting Observations
 ***Generation of JUnit Tests***
