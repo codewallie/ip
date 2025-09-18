@@ -20,8 +20,9 @@ Bro is your personal companion for managing tasks, deadlines, and events. Bro he
 
 ## Quick Start
 
-1. **Download Bro** and ensure you have Java 11 or above installed.
-2. **Run Bro** using the command:
+1. **[Download the latest release of Bro](https://github.com/codewallie/ip/releases)** and ensure you have Java 17 installed.
+2. **Open a terminal**, create new empty directory where you want Bro to be saved and move `bro.jar` into it. `cd` into that directory.
+3. **Run Bro** using the command:
    ```
    java -jar bro.jar
    ```
