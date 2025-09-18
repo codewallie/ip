@@ -2,14 +2,14 @@ package bro.ui;
 
 import java.io.IOException;
 
-import bro.commands.Command;
 import bro.commands.ByeCommand;
+import bro.commands.Command;
 import bro.tasks.Tasks;
 import bro.utils.FileIo;
 import bro.utils.Parser;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.animation.PauseTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
